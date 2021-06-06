@@ -1,16 +1,27 @@
 import * as express from 'express';
-import { Message } from '@nx-apollo-fullstack/api-interfaces';
+// import { Message } from '@nx-apollo-fullstack/api-interfaces';
+import { ApolloServer } from 'apollo-server-express';
+import { createApplication } from 'graphql-modules';
 
-const app = express();
+import { helloModule } from './modules/helloModule';
 
-const greeting: Message = { message: 'Welcome to api!' };
+const startApolloServer = async () => {
+  const application = createApplication({
+    modules: [helloModule],
+  });
+  const schema = application.createSchemaForApollo();
+  const server = new ApolloServer({ schema });
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
-});
+  await server.start();
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
-});
-server.on('error', console.error);
+  const app = express();
+  server.applyMiddleware({ app });
+
+  await new Promise((resolve) =>
+    app.listen({ port: 4000 }, resolve as () => void)
+  );
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  return { server, app };
+};
+
+startApolloServer();
