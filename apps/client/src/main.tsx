@@ -9,6 +9,7 @@ import {
 } from '@apollo/client';
 
 import { environment } from './environments/environment';
+import { HelloWorld } from './__generated__/HelloWorld';
 import App from './app/app';
 
 const HELLO_WORLD = gql`
@@ -17,14 +18,14 @@ const HELLO_WORLD = gql`
   }
 `;
 
-const HelloWorld = () => {
-  const { loading, error, data } = useQuery(HELLO_WORLD);
+const HelloWorldDisplay = () => {
+  const { loading, error, data } = useQuery<HelloWorld>(HELLO_WORLD);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
   console.log({ data });
-  return <div>Hello, {data.hello}</div>;
+  return <div>Hello, {data?.hello}</div>;
 };
 
 const client = new ApolloClient({
@@ -35,7 +36,7 @@ const client = new ApolloClient({
 render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <HelloWorld />
+      <HelloWorldDisplay />
     </ApolloProvider>
   </StrictMode>,
   document.getElementById('root')

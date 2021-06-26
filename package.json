@@ -23,7 +23,9 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "codegen:schema": "node dist/apps/api/main.js -g",
+    "codegen:generate": "apollo client:codegen --localSchemaFile=libs/api-interfaces/schema/schema.json --includes=apps/client/src/**/*.tsx --target=typescript --globalTypesFile=libs/api-interfaces/__generated__/globalTypes.ts" 
   },
   "private": true,
   "dependencies": {
