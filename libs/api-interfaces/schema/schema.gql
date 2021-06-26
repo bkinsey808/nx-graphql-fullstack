@@ -1,9 +1,11 @@
 type Query {
   hello: String!
   books: [Book]
+  getBookById(id: ID!): Book
 }
 
 type Book {
+  id: ID!
   title: String
   author: String
 }

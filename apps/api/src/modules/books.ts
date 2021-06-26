@@ -2,10 +2,12 @@ import { createModule, gql } from 'graphql-modules';
 
 const books = [
   {
+    id: '1',
     title: 'The Awakening',
     author: 'Kate Chopin',
   },
   {
+    id: '2',
     title: 'City of Glass',
     author: 'Paul Auster',
   },
@@ -20,6 +22,7 @@ export const booksModule = createModule({
 
       # This "Book" type defines the queryable fields for every book in our data source.
       type Book {
+        id: ID!
         title: String
         author: String
       }
@@ -29,12 +32,15 @@ export const booksModule = createModule({
       # case, the "books" query returns an array of zero or more Books (defined above).
       extend type Query {
         books: [Book]
+        getBookById(id: ID!): Book
       }
     `,
   ],
   resolvers: {
     Query: {
       books: () => books,
+      getBookById: (_parent, args, _context, _info) =>
+        books.find((book) => book.id === args.id),
     },
   },
 });

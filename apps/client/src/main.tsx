@@ -11,7 +11,8 @@ import {
 import { environment } from './environments/environment';
 import { HelloWorld } from './__generated__/HelloWorld';
 import App from './app/app';
-import { Books } from './__generated__/Books';
+import { GetBooks } from './__generated__/GetBooks';
+import { GetBookById, GetBookByIdVariables } from './__generated__/GetBookById';
 
 const HELLO_WORLD = gql`
   query HelloWorld {
@@ -20,7 +21,7 @@ const HELLO_WORLD = gql`
 `;
 
 const BOOKS = gql`
-  query Books {
+  query GetBooks {
     books {
       author
       title
@@ -28,19 +29,35 @@ const BOOKS = gql`
   }
 `;
 
+const GET_BOOK_BY_ID = gql`
+  query GetBookById($id: ID!) {
+    getBookById(id: $id) {
+      title
+      author
+      id
+    }
+  }
+`;
+
 const HelloWorldDisplay = () => {
-  const { loading, error, data } = useQuery<Books>(BOOKS);
+  const { loading, error, data } = useQuery<GetBookById, GetBookByIdVariables>(
+    GET_BOOK_BY_ID,
+    {
+      variables: { id: '1' },
+    }
+  );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
+  console.log(data);
   return (
     <div>
-      {data?.books?.map((book, index) => (
-        <div key={index}>
-          Book: {book?.author} {book?.title}
-        </div>
-      ))}
+      {/* {data?.books?.map((book, index) => ( */}
+      {/* <div key={index}> */}
+      Book: {data?.getBookById?.author} {data?.getBookById?.title}
+      {/* </div> */}
+      {/* ))} */}
     </div>
   );
 };

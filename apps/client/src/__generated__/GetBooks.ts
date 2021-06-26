@@ -4,15 +4,15 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Books
+// GraphQL query operation: GetBooks
 // ====================================================
 
-export interface Books_books {
+export interface GetBooks_books {
   __typename: "Book";
   author: string | null;
   title: string | null;
 }
 
-export interface Books {
-  books: (Books_books | null)[] | null;
+export interface GetBooks {
+  books: (GetBooks_books | null)[] | null;
 }
