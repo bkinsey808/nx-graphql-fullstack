@@ -9,7 +9,7 @@ const argv = yargs.options({
   g: { type: 'boolean', alias: 'generate-schema-file', default: false },
 }).argv;
 
-const generateSchemaFile = async () => {
+const generateSchemaFiles = async () => {
   const schema = getSchema();
   const fs = await import('fs');
   const { introspectionFromSchema } = await import(
@@ -48,7 +48,7 @@ const startApolloServer = async () => {
 };
 
 if (argv.g) {
-  generateSchemaFile();
+  generateSchemaFiles();
 } else {
   startApolloServer();
 }
