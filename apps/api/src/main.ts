@@ -12,9 +12,21 @@ const argv = yargs.options({
 const generateSchemaFile = async () => {
   const schema = getSchema();
   const fs = await import('fs');
-  const { printSchema } = await import('graphql');
-  fs.writeFile('schema.graphql', printSchema(schema), () => {
-    console.log('Wrote schema.graphql');
+  const { introspectionFromSchema } = await import(
+    'graphql/utilities/introspectionFromSchema'
+  );
+  const { printSchema } = await import('graphql/utilities/printSchema');
+  fs.writeFile(
+    './libs/api-interfaces/schema/schema.graphql',
+    printSchema(schema),
+    () => {
+      console.log('Wrote schema.graphql');
+    }
+  );
+  const introspection = await introspectionFromSchema(schema);
+  const json = JSON.stringify(introspection, null, 2);
+  fs.writeFile('./libs/api-interfaces/schema/schema.json', json, () => {
+    console.log('Wrote schema.json');
   });
 };
 

@@ -1,4 +1,8 @@
 {
+  "npmScope": "nx-apollo-fullstack",
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -6,41 +10,30 @@
     },
     ".eslintrc.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
-  "npmScope": "nx-apollo-fullstack",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "YjBmMWQ4YWItNTE1YS00ZDM0LTk1ZGEtMTZiNDk2YWM1OGY4fHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "MjRiNmFkNzYtZDg1ZC00NzQxLThhM2YtNjY2OTUxMTA4Mjg2fHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
     }
   },
   "projects": {
-    "client": {
-      "tags": []
-    },
-    "client-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "client"
-      ]
-    },
     "api": {
       "tags": []
     },
     "api-interfaces": {
       "tags": []
+    },
+    "client": {
+      "tags": []
+    },
+    "client-e2e": {
+      "tags": [],
+      "implicitDependencies": ["client"]
     }
   }
 }
