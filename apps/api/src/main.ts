@@ -17,10 +17,10 @@ const generateSchemaFiles = async () => {
   );
   const { printSchema } = await import('graphql/utilities/printSchema');
   fs.writeFile(
-    './libs/api-interfaces/schema/schema.graphql',
+    './libs/api-interfaces/schema/schema.gql',
     printSchema(schema),
     () => {
-      console.log('Wrote schema.graphql');
+      console.log('Wrote schema.gql');
     }
   );
   const introspection = await introspectionFromSchema(schema);

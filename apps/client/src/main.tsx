@@ -11,6 +11,7 @@ import {
 import { environment } from './environments/environment';
 import { HelloWorld } from './__generated__/HelloWorld';
 import App from './app/app';
+import { Books } from './__generated__/Books';
 
 const HELLO_WORLD = gql`
   query HelloWorld {
@@ -18,14 +19,30 @@ const HELLO_WORLD = gql`
   }
 `;
 
+const BOOKS = gql`
+  query Books {
+    books {
+      author
+      title
+    }
+  }
+`;
+
 const HelloWorldDisplay = () => {
-  const { loading, error, data } = useQuery<HelloWorld>(HELLO_WORLD);
+  const { loading, error, data } = useQuery<Books>(BOOKS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
-  console.log({ data });
-  return <div>Hello, {data?.hello}</div>;
+  return (
+    <div>
+      {data?.books?.map((book, index) => (
+        <div key={index}>
+          Book: {book?.author} {book?.title}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 const client = new ApolloClient({

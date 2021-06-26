@@ -1,0 +1,11 @@
+{
+  "schema": "libs/api-interfaces/schema/schema.gql",
+  "documents": "src/**/*.{graphql,js,ts,jsx,tsx}",
+  "extensions": {
+    "endpoints": {
+      "default": {
+        "url": "localhost:4000/graphql"
+      }
+    }
+  }
+}
