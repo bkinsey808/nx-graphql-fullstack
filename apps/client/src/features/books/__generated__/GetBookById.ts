@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface GetBookById_getBookById {
-  __typename: 'Book';
+  __typename: "Book";
   title: string | null;
   author: string | null;
   id: string;
