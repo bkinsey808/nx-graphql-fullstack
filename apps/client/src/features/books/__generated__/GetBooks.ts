@@ -7,9 +7,14 @@
 // GraphQL query operation: GetBooks
 // ====================================================
 
+export interface GetBooks_books_author {
+  __typename: "Author";
+  name: string | null;
+}
+
 export interface GetBooks_books {
   __typename: "Book";
-  author: string | null;
+  author: GetBooks_books_author | null;
   title: string | null;
 }
 

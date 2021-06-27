@@ -5,7 +5,9 @@ import { GetBooks } from './__generated__/GetBooks';
 const GET_BOOKS = gql`
   query GetBooks {
     books {
-      author
+      author {
+        name
+      }
       title
     }
   }

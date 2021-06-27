@@ -2,10 +2,17 @@ type Query {
   hello: String!
   books: [Book]
   getBookById(id: ID!): Book
+  authors: [Author]
+  getAuthorById(id: ID!): Author
 }
 
 type Book {
   id: ID!
   title: String
-  author: String
+  author: Author
+}
+
+type Author {
+  id: ID!
+  name: String
 }

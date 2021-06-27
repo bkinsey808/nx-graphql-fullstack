@@ -5,7 +5,9 @@ const GET_BOOK_BY_ID = gql`
   query GetBookById($id: ID!) {
     getBookById(id: $id) {
       title
-      author
+      author {
+        name
+      }
       id
     }
   }

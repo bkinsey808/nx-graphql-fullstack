@@ -1,15 +1,22 @@
 import { createModule, gql } from 'graphql-modules';
+import { authors } from './authors';
 
-const books = [
+interface Book {
+  id: string;
+  title: string;
+  authorId: string;
+}
+
+const books: Book[] = [
   {
     id: '1',
     title: 'The Awakening',
-    author: 'Kate Chopin',
+    authorId: '1',
   },
   {
     id: '2',
     title: 'City of Glass',
-    author: 'Paul Auster',
+    authorId: '2',
   },
 ];
 
@@ -24,7 +31,7 @@ export const booksModule = createModule({
       type Book {
         id: ID!
         title: String
-        author: String
+        author: Author
       }
 
       # The "Query" type is special: it lists all of the available queries that
@@ -41,6 +48,10 @@ export const booksModule = createModule({
       books: () => books,
       getBookById: (_parent, args, _context, _info) =>
         books.find((book) => book.id === args.id),
+    },
+    Book: {
+      author: (parent: Book) =>
+        authors.find((author) => author.id === parent.authorId),
     },
   },
 });

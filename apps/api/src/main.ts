@@ -47,8 +47,5 @@ const startApolloServer = async () => {
   return { server, app };
 };
 
-if (argv.g) {
-  generateSchemaFiles();
-} else {
-  startApolloServer();
-}
+if (argv.g) generateSchemaFiles();
+else startApolloServer();
