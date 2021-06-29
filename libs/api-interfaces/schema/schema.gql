@@ -43,6 +43,7 @@ type Author {
   firstName: String
   lastName: String
   fullName: String
+  books: [Book]
 }
 
 type Book {

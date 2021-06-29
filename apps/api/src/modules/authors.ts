@@ -1,5 +1,7 @@
 import { createModule, gql } from 'graphql-modules';
 
+import { books } from './books';
+
 export const authors = [
   {
     id: '1',
@@ -25,6 +27,7 @@ export const authorsModule = createModule({
         firstName: String
         lastName: String
         fullName: String
+        books: [Book]
       }
 
       # The "Query" type is special: it lists all of the available queries that
@@ -44,6 +47,10 @@ export const authorsModule = createModule({
     },
     Author: {
       fullName: (parent) => `${parent.firstName} ${parent.lastName}`,
+      books: (parent, args, context, info) => {
+        console.log({ parent, args, context, info });
+        return books.filter((book) => parent.books.includes(book.id));
+      },
     },
   },
 });

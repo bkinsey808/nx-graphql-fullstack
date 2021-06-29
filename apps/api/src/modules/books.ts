@@ -7,7 +7,7 @@ interface Book {
   authorId: string;
 }
 
-const books: Book[] = [
+export const books: Book[] = [
   {
     id: '1',
     title: 'The Awakening',
