@@ -32,7 +32,10 @@
     "watch": "run-p \"watch-api\" \"watch-schema\" \"watch-client\"",
     "watch-api": "nodemon -w apps/api/src -x \"npm run codegen:schema-from-endpoint\" -e *.ts",
     "watch-schema": "nodemon -w libs/api-interfaces/schema/schema.json -x \"npm run codegen:generate\"",
-    "watch-client": "nodemon -w apps/client/src -x \"npm run codegen:generate\" --ignore **/__generated__/** -e tsx,ts"
+    "watch-client": "nodemon -w apps/client/src -x \"npm run codegen:generate\" --ignore **/__generated__/** -e tsx,ts",
+    "sleep": "sleep",
+    "sleep-and-watch-client": "run-s \"sleep -- 5s\" \"watch\" ",
+    "serve-and-watch": "run-p \"nx serve api\" \"nx serve client\" \"sleep-and-watch-client\" "
   },
   "private": true,
   "dependencies": {
@@ -73,6 +76,7 @@
     "@typescript-eslint/eslint-plugin": "4.19.0",
     "@typescript-eslint/parser": "4.19.0",
     "babel-jest": "26.2.2",
+    "cli-sleep": "^1.0.1",
     "cross-env": "^7.0.3",
     "cypress": "^7.3.0",
     "dotenv": "8.2.0",

@@ -7,6 +7,7 @@ const GET_BOOK_BY_ID = gql`
       title
       author {
         fullName
+        lastName
       }
       id
     }
