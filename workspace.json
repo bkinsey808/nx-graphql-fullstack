@@ -35,7 +35,18 @@
             "buildTarget": "api:build"
           }
         },
-        "lint": {
+
+        "serve-and-build-schema": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+               "nx serve api",
+               "nx build api"
+            ],
+            "parallel": false        
+          }                 
+        },
+          "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/api/**/*.ts"]

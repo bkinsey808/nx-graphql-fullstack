@@ -3,12 +3,14 @@ import { createModule, gql } from 'graphql-modules';
 export const authors = [
   {
     id: '1',
-    name: 'Kate Chopin',
+    firstName: 'Kate',
+    lastName: 'Chopin',
     books: ['1'],
   },
   {
     id: '2',
-    author: 'Paul Auster',
+    firstName: 'Paul',
+    lastName: 'Auster',
     books: ['2'],
   },
 ];
@@ -20,7 +22,9 @@ export const authorsModule = createModule({
     gql`
       type Author {
         id: ID!
-        name: String
+        firstName: String
+        lastName: String
+        fullName: String
       }
 
       # The "Query" type is special: it lists all of the available queries that
@@ -37,6 +41,9 @@ export const authorsModule = createModule({
       authors: () => authors,
       getAuthorById: (_parent, args, _context, _info) =>
         authors.find((author) => author.id === args.id),
+    },
+    Author: {
+      fullName: (parent) => `${parent.firstName} ${parent.lastName}`,
     },
   },
 });

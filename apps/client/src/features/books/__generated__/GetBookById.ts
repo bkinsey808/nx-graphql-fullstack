@@ -9,7 +9,7 @@
 
 export interface GetBookById_getBookById_author {
   __typename: "Author";
-  name: string | null;
+  fullName: string | null;
 }
 
 export interface GetBookById_getBookById {

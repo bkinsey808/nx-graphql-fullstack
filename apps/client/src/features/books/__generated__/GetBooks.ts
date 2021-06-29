@@ -9,7 +9,9 @@
 
 export interface GetBooks_books_author {
   __typename: "Author";
-  name: string | null;
+  fullName: string | null;
+  firstName: string | null;
+  lastName: string | null;
 }
 
 export interface GetBooks_books {

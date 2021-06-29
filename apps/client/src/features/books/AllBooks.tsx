@@ -6,7 +6,9 @@ const GET_BOOKS = gql`
   query GetBooks {
     books {
       author {
-        name
+        fullName
+        firstName
+        lastName
       }
       title
     }

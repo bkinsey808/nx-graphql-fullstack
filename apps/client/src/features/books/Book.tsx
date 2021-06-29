@@ -6,7 +6,7 @@ const GET_BOOK_BY_ID = gql`
     getBookById(id: $id) {
       title
       author {
-        name
+        fullName
       }
       id
     }
