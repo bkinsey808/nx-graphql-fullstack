@@ -1,6 +1,9 @@
 import * as express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import * as yargs from 'yargs';
+import * as cors from 'cors';
+import * as helmet from 'helmet';
+import * as compression from 'compression';
 
 // import { Message } from '@nx-apollo-fullstack/api-interfaces';
 import { getSchema } from './schema';
@@ -37,6 +40,10 @@ const startApolloServer = async () => {
   await server.start();
 
   const app = express();
+  app.use('*', cors());
+  app.use(helmet());
+  app.use(compression());
+
   server.applyMiddleware({ app });
 
   await new Promise((resolve) =>

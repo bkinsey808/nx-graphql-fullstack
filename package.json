@@ -35,16 +35,19 @@
     "watch-client": "nodemon -w apps/client/src -x \"npm run codegen:generate\" --ignore **/__generated__/** -e tsx,ts",
     "sleep": "sleep",
     "sleep-and-watch-client": "run-s \"sleep -- 5s\" \"watch\" ",
-    "serve-and-watch": "run-p \"nx serve api\" \"nx serve client\" \"sleep-and-watch-client\" "
+    "dev": "run-p \"nx serve api\" \"nx serve client\" \"sleep-and-watch-client\" "
   },
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.20",
     "apollo-server-express": "^2.25.2",
+    "compression": "^1.7.4",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "document-register-element": "1.13.1",
     "express": "4.17.1",
     "graphql-modules": "^1.4.3",
+    "helmet": "^4.6.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "regenerator-runtime": "0.13.7",
