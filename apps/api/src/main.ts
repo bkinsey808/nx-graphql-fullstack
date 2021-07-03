@@ -7,6 +7,7 @@ import * as compression from 'compression';
 
 // import { Message } from '@nx-apollo-fullstack/api-interfaces';
 import { getSchema } from './schema';
+import { environment } from './environments/environment';
 
 const argv = yargs.options({
   g: { type: 'boolean', alias: 'generate-schema-file', default: false },
@@ -41,7 +42,12 @@ const startApolloServer = async () => {
 
   const app = express();
   app.use('*', cors());
-  app.use(helmet());
+  app.use(
+    helmet({
+      // see https://github.com/graphql/graphql-playground/issues/1283#issuecomment-703631091
+      contentSecurityPolicy: environment.production ? undefined : false,
+    })
+  );
   app.use(compression());
 
   server.applyMiddleware({ app });
