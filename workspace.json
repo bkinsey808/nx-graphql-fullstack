@@ -35,18 +35,14 @@
             "buildTarget": "api:build"
           }
         },
-
         "serve-and-build-schema": {
-          "builder": "@nrwl/workspace:run-commands",
+          "executor": "@nrwl/workspace:run-commands",
           "options": {
-            "commands": [
-               "nx serve api",
-               "nx build api"
-            ],
-            "parallel": false        
-          }                 
+            "commands": ["nx serve api", "nx build api"],
+            "parallel": false
+          }
         },
-          "lint": {
+        "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/api/**/*.ts"]
@@ -67,6 +63,17 @@
       "sourceRoot": "libs/api-interfaces/src",
       "projectType": "library",
       "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/api-interfaces",
+            "tsConfig": "libs/api-interfaces/tsconfig.lib.json",
+            "packageJson": "libs/api-interfaces/package.json",
+            "main": "libs/api-interfaces/src/index.ts",
+            "assets": ["libs/api-interfaces/*.md"]
+          }
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
