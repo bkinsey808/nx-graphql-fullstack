@@ -50,6 +50,7 @@ type Book {
   id: ID!
   title: String
   author: Author
+  type: String
 }
 
 type Query {
@@ -58,4 +59,7 @@ type Query {
   getBookById(id: ID!): Book
   authors: [Author]
   getAuthorById(id: ID!): Author
+  search(contains: String): [SearchResult]
 }
+
+union SearchResult = Book | Author

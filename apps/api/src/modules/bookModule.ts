@@ -1,5 +1,5 @@
 import { createModule, gql } from 'graphql-modules';
-import { authors } from './authors';
+import { authors } from './authorModule';
 
 interface Book {
   id: string;
@@ -20,8 +20,8 @@ export const books: Book[] = [
   },
 ];
 
-export const booksModule = createModule({
-  id: 'booksModule',
+export const bookModule = createModule({
+  id: 'bookModule',
   dirname: __dirname,
   typeDefs: [
     gql`
@@ -32,6 +32,7 @@ export const booksModule = createModule({
         id: ID!
         title: String
         author: Author
+        type: String
       }
 
       # The "Query" type is special: it lists all of the available queries that
@@ -45,7 +46,7 @@ export const booksModule = createModule({
   ],
   resolvers: {
     Query: {
-      books: () => books,
+      books: () => books.map((book) => ({ ...book, type: 'BookYo' })),
       getBookById: (_parent, args, _context, _info) =>
         books.find((book) => book.id === args.id),
     },

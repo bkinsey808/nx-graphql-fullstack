@@ -1,6 +1,6 @@
 import { createModule, gql } from 'graphql-modules';
 
-import { books } from './books';
+import { books } from './bookModule';
 
 export const authors = [
   {
@@ -17,8 +17,8 @@ export const authors = [
   },
 ];
 
-export const authorsModule = createModule({
-  id: 'authorsModule',
+export const authorModule = createModule({
+  id: 'authorModule',
   dirname: __dirname,
   typeDefs: [
     gql`
