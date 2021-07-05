@@ -1,5 +1,6 @@
 import { QueryLazyOptions } from '@apollo/client';
 import { FC, memo } from 'react';
+
 import { GetSearchResultsVariables } from './__generated__/GetSearchResults';
 
 interface SearchInputProps {
