@@ -1,4 +1,5 @@
 import { gql, useLazyQuery } from '@apollo/client';
+import { SearchInput } from './SearchInput';
 import {
   GetSearchResults,
   GetSearchResultsVariables,
@@ -25,20 +26,14 @@ export const Search = () => {
     GetSearchResultsVariables
   >(SEARCH);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error...</p>;
-
   return (
     <>
-      <input
-        onChange={({ target: { value } }) =>
-          search({ variables: { contains: value } })
-        }
-        type="text"
-      />
+      <SearchInput search={search} />
+      {loading && <div>Loading</div>}
+      {error && <div>Error</div>}
       <div>
-        {data?.search?.map((searchResult) => (
-          <div>
+        {data?.search?.map((searchResult, index) => (
+          <div key={index}>
             {searchResult?.__typename === 'Book' ? (
               <div>{searchResult.title}</div>
             ) : (

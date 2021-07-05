@@ -20,19 +20,22 @@ export const searchModule = createModule({
     },
     Query: {
       search: (_parent, { contains }) => {
+        const lowerCaseContains = contains.toLowerCase();
+        console.log({ lowerCaseContains });
         const searchResults = [
           ...books
-            .filter((book) => book.title.includes(contains))
+            .filter((book) =>
+              book.title.toLowerCase().includes(lowerCaseContains)
+            )
             .map((book) => ({ ...book, resolveType: 'Book' })),
           ...authors
             .filter(
               (author) =>
-                author.firstName.includes(contains) ||
-                author.lastName.includes(contains)
+                author.firstName.toLowerCase().includes(lowerCaseContains) ||
+                author.lastName.toLowerCase().includes(lowerCaseContains)
             )
             .map((author) => ({ ...author, resolveType: 'Author' })),
         ];
-        console.log({ searchResults });
         return searchResults;
       },
     },
