@@ -1,4 +1,5 @@
 import { gql, useLazyQuery } from '@apollo/client';
+
 import { SearchInput } from './SearchInput';
 import {
   GetSearchResults,
@@ -25,7 +26,6 @@ export const Search = () => {
     GetSearchResults,
     GetSearchResultsVariables
   >(SEARCH);
-
   return (
     <>
       <SearchInput search={search} />
