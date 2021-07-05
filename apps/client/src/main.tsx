@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import { environment } from './environments/environment';
-import { Book } from './features/books/Book';
+import { Search } from './features/search/Search';
 
 const client = new ApolloClient({
   uri: environment.graphqlServer,
@@ -13,7 +13,7 @@ const client = new ApolloClient({
 render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <Book />
+      <Search />
     </ApolloProvider>
   </StrictMode>,
   document.getElementById('root')

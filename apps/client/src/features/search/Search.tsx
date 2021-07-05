@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import {
   GetSearchResults,
   GetSearchResultsVariables,
@@ -20,24 +20,33 @@ const SEARCH = gql`
 `;
 
 export const Search = () => {
-  const { loading, error, data } = useQuery<
+  const [search, { loading, error, data }] = useLazyQuery<
     GetSearchResults,
     GetSearchResultsVariables
-  >(SEARCH, {
-    variables: { contains: 'e' },
-  });
+  >(SEARCH);
+
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
-  console.log(data);
+  if (error) return <p>Error...</p>;
+
   return (
-    <div>
-      {data?.search?.map((searchResult) => (
-        <div>
-          {searchResult?.__typename === 'Book'
-            ? searchResult.title
-            : searchResult?.fullName}
-        </div>
-      ))}
-    </div>
+    <>
+      <input
+        onChange={({ target: { value } }) =>
+          search({ variables: { contains: value } })
+        }
+        type="text"
+      />
+      <div>
+        {data?.search?.map((searchResult) => (
+          <div>
+            {searchResult?.__typename === 'Book' ? (
+              <div>{searchResult.title}</div>
+            ) : (
+              <div>{searchResult?.fullName}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
