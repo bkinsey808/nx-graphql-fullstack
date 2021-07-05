@@ -1,4 +1,6 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
+import { useCallback } from 'react';
+import debounce from 'lodash/debounce';
 
 import { SearchInput } from './SearchInput';
 import {
@@ -26,9 +28,16 @@ export const Search = () => {
     GetSearchResults,
     GetSearchResultsVariables
   >(SEARCH);
+
+  const debouncedSearch = useCallback(
+    (options?: QueryLazyOptions<GetSearchResultsVariables>) =>
+      debounce(search, 100)(options),
+    [search]
+  );
+
   return (
     <>
-      <SearchInput search={search} />
+      <SearchInput search={debouncedSearch} />
       {loading && <div>Loading</div>}
       {error && <div>Error</div>}
       <div>

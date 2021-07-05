@@ -21,7 +21,6 @@ export const searchModule = createModule({
     Query: {
       search: (_parent, { contains }) => {
         const lowerCaseContains = contains.toLowerCase();
-        console.log({ lowerCaseContains });
         const searchResults = [
           ...books
             .filter((book) =>
