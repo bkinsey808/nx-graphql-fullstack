@@ -1,25 +1,33 @@
 import * as express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import { createApplication } from 'graphql-modules';
 import * as yargs from 'yargs';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 
 // import { Message } from '@nx-apollo-fullstack/api-interfaces';
-import { getSchema } from './schema';
 import { environment } from './environments/environment';
+import { modules } from './modules';
 
 const argv = yargs.options({
   g: { type: 'boolean', alias: 'generate-schema-file', default: false },
 }).argv;
 
+const getSchema = () => {
+  const application = createApplication({
+    modules,
+  });
+  return application.createSchemaForApollo();
+};
+
 const generateSchemaFiles = async () => {
-  const schema = getSchema();
   const fs = await import('fs');
   const { introspectionFromSchema } = await import(
     'graphql/utilities/introspectionFromSchema'
   );
   const { printSchema } = await import('graphql/utilities/printSchema');
+  const schema = getSchema();
   fs.writeFile(
     './libs/api-interfaces/schema/schema.gql',
     printSchema(schema),
