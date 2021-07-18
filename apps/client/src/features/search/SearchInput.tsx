@@ -5,7 +5,7 @@ import { GetSearchResultsVariables } from './__generated__/GetSearchResults';
 
 interface SearchInputProps {
   search: (
-    options?: QueryLazyOptions<GetSearchResultsVariables> | undefined
+    options?: QueryLazyOptions<GetSearchResultsVariables>
   ) => void;
 }
 
