@@ -5,6 +5,7 @@
     "firsttris.vscode-jest-runner",
     "dbaeumer.vscode-eslint",
     "graphql.vscode-graphql",
-    "orta.vscode-jest"
+    "orta.vscode-jest",
+    "streetsidesoftware.code-spell-checker"
   ]
 }
