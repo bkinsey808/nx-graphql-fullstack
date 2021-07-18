@@ -12,9 +12,9 @@ export const SearchResults: FC<SearchResultsProps> = ({ searchResults }) => {
       {searchResults?.map((searchResult, index) => (
         <div key={index}>
           {searchResult?.__typename === 'Book' ? (
-            <div>{searchResult.title}</div>
+            <div>Book: {searchResult.title}</div>
           ) : (
-            <div>{searchResult?.fullName}</div>
+            <div>Author: {searchResult?.fullName}</div>
           )}
         </div>
       ))}

@@ -1,7 +1,7 @@
 import { createModule, gql } from 'graphql-modules';
 import { authors } from './authorModule';
 
-interface Book {
+export interface Book {
   id: string;
   title: string;
   authorId: string;

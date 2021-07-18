@@ -2,7 +2,14 @@ import { createModule, gql } from 'graphql-modules';
 
 import { books } from './bookModule';
 
-export const authors = [
+export interface Author {
+  id: string;
+  firstName: string;
+  lastName: string;
+  books: string[];
+}
+
+export const authors: Author[] = [
   {
     id: '1',
     firstName: 'Kate',
@@ -15,7 +22,16 @@ export const authors = [
     lastName: 'Auster',
     books: ['2'],
   },
+  {
+    id: '3',
+    firstName: 'John',
+    lastName: 'Zimmer',
+    books: ['2'],
+  },
 ];
+
+export const getFullName = (author: Author) =>
+  `${author.lastName}, ${author.firstName}`;
 
 export const authorModule = createModule({
   id: 'authorModule',
@@ -46,7 +62,7 @@ export const authorModule = createModule({
         authors.find((author) => author.id === args.id),
     },
     Author: {
-      fullName: (parent) => `${parent.firstName} ${parent.lastName}`,
+      fullName: getFullName,
       books: (parent, _args, _context, _info) =>
         books.filter((book) => parent.books.includes(book.id)),
     },
