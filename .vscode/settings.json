@@ -3,6 +3,8 @@
   "cSpell.words": [
     "codegen",
     "nrwl",
-    "queryable"
-  ]
+    "queryable",
+    "cssmodule"
+  ],
+  "editor.formatOnSave": true
 }

@@ -1,12 +1,13 @@
 import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 
-import { SearchInput } from './SearchInput';
+import { SearchForm } from './SearchForm';
 import {
   GetSearchResults,
   GetSearchResultsVariables,
 } from './__generated__/GetSearchResults';
+import { SearchResults } from './SearchResults';
 
 const SEARCH = gql`
   query GetSearchResults($contains: String!) {
@@ -35,22 +36,20 @@ export const Search = () => {
     [search]
   );
 
+  useEffect(() => {
+    debouncedSearch({ variables: { contains: '' } });
+  }, [debouncedSearch]);
+
   return (
     <>
-      <SearchInput search={debouncedSearch} />
+      <SearchForm search={debouncedSearch} />
       {loading && <div>Loading</div>}
-      {error && <div>Error</div>}
-      <div>
-        {data?.search?.map((searchResult, index) => (
-          <div key={index}>
-            {searchResult?.__typename === 'Book' ? (
-              <div>{searchResult.title}</div>
-            ) : (
-              <div>{searchResult?.fullName}</div>
-            )}
-          </div>
-        ))}
-      </div>
+      {error && <div>Error {JSON.stringify(error)}</div>}
+      {!data?.search ? (
+        <div>No results.</div>
+      ) : (
+        <SearchResults searchResults={data.search} />
+      )}
     </>
   );
 };

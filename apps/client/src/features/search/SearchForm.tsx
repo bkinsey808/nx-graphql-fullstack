@@ -3,15 +3,15 @@ import { FC, memo } from 'react';
 
 import { GetSearchResultsVariables } from './__generated__/GetSearchResults';
 
-interface SearchInputProps {
+interface SearchFormProps {
   search: (
     options?: QueryLazyOptions<GetSearchResultsVariables>
   ) => void;
 }
 
-export const SearchInput: FC<SearchInputProps> = memo(({ search }) => {
-  return (
-    <input
+export const SearchForm: FC<SearchFormProps> = memo(({ search }) => {
+  return (    
+    <input autoFocus
       onChange={({ target: { value } }) =>
         search({ variables: { contains: value } })
       }
