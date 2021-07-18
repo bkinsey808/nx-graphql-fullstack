@@ -1,6 +1,6 @@
 # NxApolloFullstack
 
-This project attempts to demonstrate best practices building a full stack graphql project using a monorepo. It feature code watching and graphql codegen to generate typescript types.
+This project attempts to demonstrate best practices building a full stack graphql project using a monorepo. It features code watching and graphql codegen to generate typescript types.
 
 This project was generated using [Nx](https://nx.dev).
 

@@ -26,7 +26,7 @@ const generateSchemaFiles = async () => {
   const { introspectionFromSchema } = await import(
     'graphql/utilities/introspectionFromSchema'
   );
-  const { printSchema } = await import('graphql/utilities/printSchema');
+  const { printSchema } = await import('graphql/utilities');
   const schema = getSchema();
   fs.writeFile(
     './libs/api-interfaces/schema/schema.gql',
