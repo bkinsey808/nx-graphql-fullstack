@@ -1,4 +1,9 @@
 import { FC } from 'react';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 import { GetSearchResults } from './__generated__/GetSearchResults';
 
@@ -8,16 +13,19 @@ interface SearchResultsProps {
 
 export const SearchResults: FC<SearchResultsProps> = ({ searchResults }) => {
   return (
-    <div>
-      {searchResults?.map((searchResult, index) => (
-        <div key={index}>
-          {searchResult?.__typename === 'Book' ? (
-            <div>Book: {searchResult.title}</div>
-          ) : (
-            <div>Author: {searchResult?.fullName}</div>
-          )}
-        </div>
-      ))}
-    </div>
+    <Card>
+      <CardHeader title="Search Results" />
+      <CardContent>
+        {searchResults?.map((searchResult, index) => (
+          <List key={index}>
+            {searchResult?.__typename === 'Book' ? (
+              <ListItem>Book: {searchResult.title}</ListItem>
+            ) : (
+              <ListItem>Author: {searchResult?.fullName}</ListItem>
+            )}
+          </List>
+        ))}
+      </CardContent>
+    </Card>
   );
 };
