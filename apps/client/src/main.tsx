@@ -1,20 +1,18 @@
-import { StrictMode } from 'react';
 import { render } from 'react-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 
 import { environment } from './environments/environment';
-import { Search } from './features/search/Search';
+import { App } from './app/app';
+import { cache } from './cache';
 
 const client = new ApolloClient({
   uri: environment.graphqlServer,
-  cache: new InMemoryCache(),
+  cache,
 });
 
 render(
-  <StrictMode>
-    <ApolloProvider client={client}>
-      <Search />
-    </ApolloProvider>
-  </StrictMode>,
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
   document.getElementById('root')
 );

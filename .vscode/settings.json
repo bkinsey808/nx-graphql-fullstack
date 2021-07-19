@@ -6,5 +6,8 @@
     "queryable",
     "cssmodule"
   ],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.sideBar.location": "right",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

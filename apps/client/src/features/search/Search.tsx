@@ -2,12 +2,13 @@ import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 
+import { ThemeSelect } from '../theme/ThemeSelect';
 import { SearchForm } from './SearchForm';
+import { SearchResults } from './SearchResults';
 import {
   GetSearchResults,
   GetSearchResultsVariables,
 } from './__generated__/GetSearchResults';
-import { SearchResults } from './SearchResults';
 
 const SEARCH = gql`
   query GetSearchResults($contains: String!) {
@@ -42,6 +43,7 @@ export const Search = () => {
 
   return (
     <>
+      <ThemeSelect />
       <SearchForm search={debouncedSearch} />
       {loading && <div>Loading</div>}
       {error && <div>Error {JSON.stringify(error)}</div>}

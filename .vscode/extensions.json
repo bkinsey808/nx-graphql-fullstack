@@ -6,6 +6,9 @@
     "dbaeumer.vscode-eslint",
     "graphql.vscode-graphql",
     "orta.vscode-jest",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-rename-tag",
+    "coenraads.bracket-pair-colorizer-2",
+    "wix.vscode-import-cost"
   ]
 }
