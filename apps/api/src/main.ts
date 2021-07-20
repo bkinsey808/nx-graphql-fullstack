@@ -49,7 +49,8 @@ const startApolloServer = async () => {
   await server.start();
 
   const app = express();
-  app.use('*', cors());
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  app.use('*', cors() as any);
   app.use(
     helmet({
       // see https://github.com/graphql/graphql-playground/issues/1283#issuecomment-703631091

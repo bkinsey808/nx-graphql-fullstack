@@ -46,8 +46,8 @@ export const bookModule = createModule({
   ],
   resolvers: {
     Query: {
-      books: () => books.map((book) => ({ ...book, type: 'BookYo' })),
-      getBookById: (_parent, args, _context, _info) =>
+      books: () => books.map((book) => ({ ...book, type: 'Book' })),
+      getBookById: (_parent: undefined, args: { id: string }) =>
         books.find((book) => book.id === args.id),
     },
     Book: {

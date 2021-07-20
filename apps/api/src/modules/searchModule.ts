@@ -2,7 +2,8 @@ import { createModule, gql } from 'graphql-modules';
 import { Author, authors, getFullName } from './authorModule';
 import { Book, books } from './bookModule';
 
-const bookAndAuthorSorter = (a, b) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const bookAndAuthorSorter = (a: any, b: any) => {
   const aSearchField =
     a.resolveType === 'Book' ? (a as Book).title : getFullName(a as Author);
   const bSearchField =
@@ -40,10 +41,10 @@ export const searchModule = createModule({
   ],
   resolvers: {
     SearchResult: {
-      __resolveType: ({ resolveType }) => resolveType,
+      __resolveType: ({ resolveType }: { resolveType: string }) => resolveType,
     },
     Query: {
-      search: (_parent, { contains }) =>
+      search: (_parent: undefined, { contains }: { contains: string }) =>
         getFilteredBooksAndAuthors(contains).sort(bookAndAuthorSorter),
     },
   },

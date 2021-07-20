@@ -58,12 +58,12 @@ export const authorModule = createModule({
   resolvers: {
     Query: {
       authors: () => authors,
-      getAuthorById: (_parent, args, _context, _info) =>
+      getAuthorById: (_parent: undefined, args: { id: string }) =>
         authors.find((author) => author.id === args.id),
     },
     Author: {
       fullName: getFullName,
-      books: (parent, _args, _context, _info) =>
+      books: (parent: { books: string[] }) =>
         books.filter((book) => parent.books.includes(book.id)),
     },
   },
