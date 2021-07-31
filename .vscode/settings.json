@@ -1,13 +1,25 @@
 {
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "editor.formatOnSave": true,
+  "workbench.sideBar.location": "right",
+  "javascript.updateImportsOnFileMove.enabled": "always",
   "cSpell.words": [
     "codegen",
     "nrwl",
     "queryable",
     "cssmodule"
   ],
-  "editor.formatOnSave": true,
-  "workbench.sideBar.location": "right",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "cSpell.ignorePaths": [
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/objects/**",
+    ".vscode",
+    ".vscode-insiders",
+    "package.json",
+    "*.initialState.json",
+    "*.testData.json",
+    "**/*.d.ts",
+    ".vscode-server"
+  ],
 }
