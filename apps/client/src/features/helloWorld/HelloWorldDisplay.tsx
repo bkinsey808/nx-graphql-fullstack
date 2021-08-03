@@ -1,4 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
+
 import { HelloWorld } from './__generated__/HelloWorld';
 
 const HELLO_WORLD = gql`

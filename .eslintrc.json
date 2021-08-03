@@ -1,7 +1,12 @@
 {
+  "extends": [
+    "plugin:@nrwl/nx/react",
+    "plugin:sonarjs/recommended",
+    "plugin:import/recommended"
+  ],
+  "plugins": ["@nrwl/nx", "prettier", "sonarjs"],
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -38,7 +43,35 @@
           "error",
           { "argsIgnorePattern": "^_" }
         ],
-        "curly": ["error", "multi"]
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/ban-types": ["off"],
+        "react/jsx-no-useless-fragment": "off",
+        "react/jsx-props-no-spreading": [
+          "error",
+          {
+            "exceptions": [
+              "Button",
+              "SvgIcon",
+              "ExpandMoreIcon",
+              "Link",
+              "Select"
+            ]
+          }
+        ],
+        "prettier/prettier": "error",
+        "import/no-unresolved": "off",
+        "import/order": [
+          "error",
+          {
+            "newlines-between": "always-and-inside-groups",
+            "alphabetize": { "order": "asc", "caseInsensitive": true }
+          }
+        ],
+        "curly": ["error", "multi"],
+        "no-empty": ["error", { "allowEmptyCatch": true }],
+        "no-loop-func": "error",
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+        "eqeqeq": ["error", "always"]
       }
     }
   ]

@@ -1,13 +1,19 @@
 {
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.sideBar.location": "right",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "github.copilot.autocomplete.enable": true,
   "cSpell.words": [
+    "buildable",
     "codegen",
+    "cssmodule",
+    "eqeqeq",
     "nrwl",
     "queryable",
-    "cssmodule"
+    "sonarjs"
   ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",
@@ -21,5 +27,5 @@
     "*.testData.json",
     "**/*.d.ts",
     ".vscode-server"
-  ],
+  ]
 }

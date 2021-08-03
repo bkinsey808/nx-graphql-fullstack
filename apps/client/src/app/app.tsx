@@ -6,6 +6,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { useMemo } from 'react';
+
 import { themeChoiceVar } from '../cache';
 import { Search } from '../features/search/Search';
 

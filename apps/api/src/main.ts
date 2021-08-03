@@ -1,10 +1,10 @@
-import * as express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { createApplication } from 'graphql-modules';
-import * as yargs from 'yargs';
-import * as cors from 'cors';
-import * as helmet from 'helmet';
 import * as compression from 'compression';
+import * as cors from 'cors';
+import * as express from 'express';
+import { createApplication } from 'graphql-modules';
+import * as helmet from 'helmet';
+import * as yargs from 'yargs';
 
 // import { Message } from '@nx-apollo-fullstack/api-interfaces';
 import { environment } from './environments/environment';

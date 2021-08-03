@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react';
+import { useReactiveVar } from '@apollo/client';
 import {
   Card,
   CardContent,
@@ -7,8 +7,9 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core';
+import { ChangeEvent, FC, memo } from 'react';
+
 import { ThemeChoice, themeChoiceVar, THEME_CHOICES } from '../../cache';
-import { useReactiveVar } from '@apollo/client';
 
 const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
   if (event?.target?.value) {

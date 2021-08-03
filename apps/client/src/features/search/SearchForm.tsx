@@ -1,8 +1,8 @@
 import { QueryLazyOptions } from '@apollo/client';
-import { FC, memo } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
+import { FC, memo } from 'react';
 
 import { GetSearchResultsVariables } from './__generated__/GetSearchResults';
 
