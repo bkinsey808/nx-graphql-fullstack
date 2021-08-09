@@ -17,6 +17,7 @@ declare namespace Cypress {
 }
 //
 // -- This is a parent command --
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 Cypress.Commands.add('login', (email, password) => {
   console.log('Custom command example: Login', email, password);
 });

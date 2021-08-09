@@ -3,8 +3,11 @@ import { createModule, gql } from 'graphql-modules';
 import { Author, authors, getFullName } from './authorModule';
 import { Book, books } from './bookModule';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const bookAndAuthorSorter = (a: any, b: any) => {
+type BookOrAuthor =
+  | (Book & { resolveType: 'Book' })
+  | (Author & { resolveType: 'Author' });
+
+const bookAndAuthorSorter = (a: BookOrAuthor, b: BookOrAuthor) => {
   const aSearchField =
     a.resolveType === 'Book' ? (a as Book).title : getFullName(a as Author);
   const bSearchField =
@@ -25,7 +28,7 @@ const getFilteredBooksAndAuthors = (contains: string) => {
           author.lastName.toLowerCase().includes(lowerCaseContains)
       )
       .map((author) => ({ ...author, resolveType: 'Author' })),
-  ];
+  ] as BookOrAuthor[];
 };
 
 export const searchModule = createModule({

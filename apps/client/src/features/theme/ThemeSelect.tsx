@@ -47,3 +47,4 @@ export const ThemeSelect: FC = memo(() => {
     </Card>
   );
 });
+ThemeSelect.displayName = 'ThemeSelect';

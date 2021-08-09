@@ -1,12 +1,23 @@
 {
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@nrwl/nx/react",
     "plugin:sonarjs/recommended",
     "plugin:import/recommended"
   ],
   "plugins": ["@nrwl/nx", "prettier", "sonarjs"],
   "root": true,
+
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.*?.json"
+  },
+
   "ignorePatterns": ["**/*"],
   "overrides": [
     {
@@ -36,7 +47,11 @@
           { "argsIgnorePattern": "^_" }
         ],
         "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/ban-types": ["warn"]
+        "@typescript-eslint/ban-types": ["warn"],
+        "@typescript-eslint/no-floating-promises": [
+          "error",
+          { "ignoreVoid": true }
+        ]
       }
     },
     {
@@ -63,16 +78,25 @@
         "curly": ["error", "multi"],
         "eqeqeq": ["error", "always"],
         "guard-for-in": "error",
+        "no-duplicate-imports": "error",
         "no-await-in-loop": "error",
         "no-empty": ["error", { "allowEmptyCatch": true }],
+        "no-implicit-globals": "error",
         "no-invalid-this": "error",
-        "no-promise-executor-return": "error",
+        "no-lone-blocks": "error",
         "no-loop-func": "error",
         "no-loss-of-precision": "error",
+        "no-new": "error",
+        "no-promise-executor-return": "error",
         "no-prototype-builtins": "error",
+        "no-return-assign": "error",
+        "no-return-await": "error",
         "no-template-curly-in-string": "error",
+        "no-throw-literal": "error",
         "no-unreachable-loop": "error",
-        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }]
+        "no-unused-expressions": "error",
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+        "yoda": "error"
       }
     }
   ]

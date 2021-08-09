@@ -11,7 +11,9 @@ interface SearchResultsProps {
   searchResults: GetSearchResults['search'];
 }
 
-export const SearchResults: FC<SearchResultsProps> = ({ searchResults }) => {
+export const SearchResults: FC<SearchResultsProps> = ({
+  searchResults,
+}: SearchResultsProps) => {
   return (
     <Card>
       <CardHeader title="Search Results" />

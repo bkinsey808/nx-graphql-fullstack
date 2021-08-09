@@ -35,7 +35,7 @@ const generateSchemaFiles = async () => {
       console.log('Wrote schema.gql');
     }
   );
-  const introspection = await introspectionFromSchema(schema);
+  const introspection = introspectionFromSchema(schema);
   const json = JSON.stringify(introspection, null, 2);
   fs.writeFile('./libs/api-interfaces/schema/schema.json', json, () => {
     console.log('Wrote schema.json');
@@ -69,5 +69,9 @@ const startApolloServer = async () => {
   return { server, app };
 };
 
-if (argv.g) generateSchemaFiles();
-else startApolloServer();
+const main = async () => {
+  if (argv.g) await generateSchemaFiles();
+  else await startApolloServer();
+};
+
+void main();

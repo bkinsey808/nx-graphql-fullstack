@@ -18,5 +18,6 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
 
   // Preprocess Typescript file using Nx helper
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   on('file:preprocessor', preprocessTypescript(config));
 };

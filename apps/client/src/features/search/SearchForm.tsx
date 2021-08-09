@@ -10,22 +10,25 @@ interface SearchFormProps {
   search: (options?: QueryLazyOptions<GetSearchResultsVariables>) => void;
 }
 
-export const SearchForm: FC<SearchFormProps> = memo(({ search }) => {
-  return (
-    <Card>
-      <CardContent>
-        <form>
-          <TextField
-            autoFocus
-            id="outlined-basic"
-            label="Search"
-            variant="outlined"
-            onChange={({ target: { value } }) =>
-              search({ variables: { contains: value } })
-            }
-          />
-        </form>
-      </CardContent>
-    </Card>
-  );
-});
+export const SearchForm: FC<SearchFormProps> = memo(
+  ({ search }: SearchFormProps) => {
+    return (
+      <Card>
+        <CardContent>
+          <form>
+            <TextField
+              autoFocus
+              id="outlined-basic"
+              label="Search"
+              variant="outlined"
+              onChange={({ target: { value } }) =>
+                search({ variables: { contains: value } })
+              }
+            />
+          </form>
+        </CardContent>
+      </Card>
+    );
+  }
+);
+SearchForm.displayName = 'SearchForm';

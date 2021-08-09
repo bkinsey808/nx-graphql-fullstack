@@ -34,6 +34,7 @@ export const Search = () => {
 
   const debouncedSearch = useCallback(
     (options?: QueryLazyOptions<GetSearchResultsVariables>) =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
       debounce(search, 100)(options),
     [search]
   );
