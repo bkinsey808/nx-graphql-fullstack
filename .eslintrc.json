@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "plugin:@nrwl/nx/react",
     "plugin:sonarjs/recommended",
     "plugin:import/recommended"
@@ -29,7 +30,14 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/ban-types": ["warn"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
@@ -39,25 +47,8 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          { "argsIgnorePattern": "^_" }
-        ],
-        "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/ban-types": ["off"],
         "react/jsx-no-useless-fragment": "off",
-        "react/jsx-props-no-spreading": [
-          "error",
-          {
-            "exceptions": [
-              "Button",
-              "SvgIcon",
-              "ExpandMoreIcon",
-              "Link",
-              "Select"
-            ]
-          }
-        ],
+        "react/jsx-props-no-spreading": ["error"],
         "prettier/prettier": "error",
         "import/no-unresolved": "off",
         "import/order": [
@@ -67,11 +58,21 @@
             "alphabetize": { "order": "asc", "caseInsensitive": true }
           }
         ],
+        "array-callback-return": "error",
+        "consistent-return": "error",
         "curly": ["error", "multi"],
+        "eqeqeq": ["error", "always"],
+        "guard-for-in": "error",
+        "no-await-in-loop": "error",
         "no-empty": ["error", { "allowEmptyCatch": true }],
+        "no-invalid-this": "error",
+        "no-promise-executor-return": "error",
         "no-loop-func": "error",
-        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
-        "eqeqeq": ["error", "always"]
+        "no-loss-of-precision": "error",
+        "no-prototype-builtins": "error",
+        "no-template-curly-in-string": "error",
+        "no-unreachable-loop": "error",
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }]
       }
     }
   ]

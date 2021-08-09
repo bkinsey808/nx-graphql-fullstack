@@ -8,6 +8,7 @@
   "github.copilot.autocomplete.enable": true,
   "cSpell.words": [
     "buildable",
+    "builtins",
     "codegen",
     "cssmodule",
     "eqeqeq",

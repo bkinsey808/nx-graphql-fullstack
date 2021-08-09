@@ -61,9 +61,9 @@ const startApolloServer = async () => {
 
   server.applyMiddleware({ app });
 
-  await new Promise((resolve) =>
-    app.listen({ port: 4000 }, resolve as () => void)
-  );
+  await new Promise((resolve) => {
+    app.listen({ port: 4000 }, resolve as () => void);
+  });
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 
   return { server, app };
