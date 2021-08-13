@@ -1,32 +1,21 @@
-import { useReactiveVar } from '@apollo/client';
-import {
-  createTheme,
-  CssBaseline,
-  ThemeProvider,
-  useMediaQuery,
-} from '@material-ui/core';
+import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { useMemo } from 'react';
 
-import { themeChoiceVar } from '../cache';
 import { Search } from '../features/search/Search';
 
+import { useThemeType } from './useThemeType';
+
 export const App = () => {
-  const mediaQueryDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const themeChoice = useReactiveVar(themeChoiceVar);
+  const themeType = useThemeType();
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          type:
-            themeChoice === 'Same as System'
-              ? mediaQueryDarkMode
-                ? 'dark'
-                : 'light'
-              : (themeChoice.toLowerCase() as 'dark' | 'light'),
+          type: themeType,
         },
       }),
-    [mediaQueryDarkMode, themeChoice]
+    [themeType]
   );
 
   return (

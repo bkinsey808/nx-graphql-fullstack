@@ -13,6 +13,7 @@
     "codegen",
     "cssmodule",
     "eqeqeq",
+    "GraphQL",
     "nrwl",
     "queryable",
     "sonarjs"
