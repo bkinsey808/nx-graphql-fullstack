@@ -7,16 +7,19 @@
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "github.copilot.autocomplete.enable": true,
   "cSpell.words": [
+    "GraphQL",
     "buildable",
     "builtins",
     "chainable",
     "codegen",
     "cssmodule",
     "eqeqeq",
-    "GraphQL",
+    "mixins",
     "nrwl",
     "queryable",
-    "sonarjs"
+    "rerender",
+    "sonarjs",
+    "unmount"
   ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",
