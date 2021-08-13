@@ -1,22 +1,11 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { useMemo } from 'react';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 
 import { Search } from '../features/search/Search';
 
-import { useThemeType } from './useThemeType';
+import { useCustomTheme } from './useCustomTheme';
 
 export const App = () => {
-  const themeType = useThemeType();
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          type: themeType,
-        },
-      }),
-    [themeType]
-  );
+  const theme = useCustomTheme();
 
   return (
     <ThemeProvider theme={theme}>

@@ -37,7 +37,7 @@ export const ThemeSelect: FC = memo(() => {
             >
               {THEME_CHOICES.map((choice) => (
                 <MenuItem key={choice} value={choice}>
-                  Choice: {choice}
+                  {choice}
                 </MenuItem>
               ))}
             </Select>
