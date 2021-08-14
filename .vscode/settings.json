@@ -10,6 +10,7 @@
     "GraphQL",
     "buildable",
     "builtins",
+    "cacheable",
     "chainable",
     "codegen",
     "cssmodule",

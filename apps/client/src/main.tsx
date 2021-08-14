@@ -1,14 +1,8 @@
-import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { render } from 'react-dom';
 
 import { App } from './app/app';
-import { cache } from './cache';
-import { environment } from './environments/environment';
-
-const client = new ApolloClient({
-  uri: environment.graphqlServer,
-  cache,
-});
+import { client } from './client';
 
 render(
   <ApolloProvider client={client}>
