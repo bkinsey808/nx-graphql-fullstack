@@ -1,12 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
-import {
-  Card,
-  CardContent,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { ChangeEvent, FC, memo } from 'react';
 
 import { ThemeChoice, themeChoiceVar, THEME_CHOICES } from '../../cache';
@@ -20,31 +13,25 @@ const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
 
 export const ThemeSelect: FC = memo(() => {
   const themeChoice = useReactiveVar(themeChoiceVar);
-  console.log('render', themeChoice);
+
   return (
-    <Card>
-      <CardContent>
-        <form>
-          <FormControl variant="outlined">
-            <InputLabel id="demo-simple-select-outlined-label">
-              Theme
-            </InputLabel>
-            <Select
-              key={themeChoice}
-              value={themeChoice}
-              onChange={handleChange}
-              label="Theme"
-            >
-              {THEME_CHOICES.map((choice) => (
-                <MenuItem key={choice} value={choice}>
-                  {choice}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </form>
-      </CardContent>
-    </Card>
+    <form>
+      <FormControl variant="outlined">
+        <InputLabel id="demo-simple-select-outlined-label">Theme</InputLabel>
+        <Select
+          key={themeChoice}
+          value={themeChoice}
+          onChange={handleChange}
+          label="Theme"
+        >
+          {THEME_CHOICES.map((choice) => (
+            <MenuItem key={choice} value={choice}>
+              {choice}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </form>
   );
 });
 ThemeSelect.displayName = 'ThemeSelect';

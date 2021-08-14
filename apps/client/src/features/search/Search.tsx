@@ -1,4 +1,7 @@
 import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect } from 'react';
 
@@ -44,16 +47,24 @@ export const Search = () => {
   }, [debouncedSearch]);
 
   return (
-    <>
-      <ThemeSelect />
-      <SearchForm search={debouncedSearch} />
-      {loading && <div>Loading</div>}
-      {error && <div>Error {JSON.stringify(error)}</div>}
-      {!data?.search ? (
-        <div>No results.</div>
-      ) : (
-        <SearchResults searchResults={data.search} />
-      )}
-    </>
+    <Card>
+      <CardContent>
+        <Grid container spacing={3}>
+          <Grid xs={12} item>
+            <ThemeSelect />
+          </Grid>
+          <Grid item>
+            <SearchForm search={debouncedSearch} />
+            {!data?.search?.length ? (
+              <div>No results.</div>
+            ) : (
+              <SearchResults searchResults={data.search} />
+            )}
+            {loading && <div>Loading</div>}
+            {error && !loading && <div>Error {JSON.stringify(error)}</div>}
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 };

@@ -1,6 +1,4 @@
 import { QueryLazyOptions } from '@apollo/client';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { FC, memo } from 'react';
 
@@ -13,21 +11,17 @@ interface SearchFormProps {
 export const SearchForm: FC<SearchFormProps> = memo(
   ({ search }: SearchFormProps) => {
     return (
-      <Card>
-        <CardContent>
-          <form>
-            <TextField
-              autoFocus
-              id="outlined-basic"
-              label="Search"
-              variant="outlined"
-              onChange={({ target: { value } }) =>
-                search({ variables: { contains: value } })
-              }
-            />
-          </form>
-        </CardContent>
-      </Card>
+      <form>
+        <TextField
+          autoFocus
+          id="outlined-basic"
+          label="Search"
+          variant="outlined"
+          onChange={({ target: { value } }) =>
+            search({ variables: { contains: value } })
+          }
+        />
+      </form>
     );
   }
 );
