@@ -75,7 +75,7 @@
         ],
         "array-callback-return": "error",
         "consistent-return": "error",
-        "curly": ["error", "multi"],
+        "curly": ["error"],
         "eqeqeq": ["error", "always"],
         "guard-for-in": "error",
         "no-duplicate-imports": "error",
