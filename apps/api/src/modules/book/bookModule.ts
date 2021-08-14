@@ -1,25 +1,10 @@
+import { ApolloError } from 'apollo-server-express';
 import { createModule, gql } from 'graphql-modules';
+import * as uuid from 'uuid';
 
-import { authors } from './authorModule';
+import { authors } from '../author/authorModule';
 
-export interface Book {
-  id: string;
-  title: string;
-  authorId: string;
-}
-
-export const books: Book[] = [
-  {
-    id: '1',
-    title: 'The Awakening',
-    authorId: '1',
-  },
-  {
-    id: '2',
-    title: 'City of Glass',
-    authorId: '2',
-  },
-];
+import { Book, books } from './books';
 
 export const bookModule = createModule({
   id: 'bookModule',
@@ -43,6 +28,10 @@ export const bookModule = createModule({
         books: [Book]
         getBookById(id: ID!): Book
       }
+
+      type Mutation {
+        addBook(title: String!, authorId: String!): Book
+      }
     `,
   ],
   resolvers: {
@@ -50,6 +39,26 @@ export const bookModule = createModule({
       books: () => books.map((book) => ({ ...book, type: 'Book' })),
       getBookById: (_parent: undefined, args: { id: string }) =>
         books.find((book) => book.id === args.id),
+    },
+    Mutation: {
+      addBook: (_parent: undefined, { title, authorId }: Omit<Book, 'id'>) => {
+        if (!title) {
+          throw new ApolloError('Title is required');
+        }
+        if (!authorId) {
+          throw new ApolloError('AuthorId is required');
+        }
+        if (!authors.find((author) => author.id === authorId)) {
+          throw new ApolloError('AuthorId not found');
+        }
+        const newBook: Book = {
+          id: uuid.v4(),
+          title,
+          authorId,
+        };
+        books.push(newBook);
+        return newBook;
+      },
     },
     Book: {
       author: (parent: Book) =>

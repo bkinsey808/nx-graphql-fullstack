@@ -1,7 +1,7 @@
 import { createModule, gql } from 'graphql-modules';
 
-import { Author, authors, getFullName } from './authorModule';
-import { Book, books } from './bookModule';
+import { Author, authors, getFullName } from './author/authorModule';
+import { Book, books } from './book/books';
 
 type BookOrAuthor =
   | (Book & { resolveType: 'Book' })

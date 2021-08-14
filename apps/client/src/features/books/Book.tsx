@@ -30,7 +30,6 @@ export const Book = () => {
     return <p>Error</p>;
   }
 
-  console.log(data);
   return (
     <div>
       Book: {data?.getBookById?.author} {data?.getBookById?.title}

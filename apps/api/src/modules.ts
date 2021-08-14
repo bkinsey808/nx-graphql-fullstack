@@ -1,5 +1,5 @@
-import { authorModule } from './modules/authorModule';
-import { bookModule } from './modules/bookModule';
+import { authorModule } from './modules/author/authorModule';
+import { bookModule } from './modules/book/bookModule';
 import { helloModule } from './modules/helloModule';
 import { searchModule } from './modules/searchModule';
 

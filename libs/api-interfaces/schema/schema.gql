@@ -47,6 +47,10 @@ type Book {
   type: String
 }
 
+type Mutation {
+  addBook(title: String!, authorId: String!): Book
+}
+
 type Query {
   hello: String!
   books: [Book]

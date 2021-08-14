@@ -1,6 +1,6 @@
 import { createModule, gql } from 'graphql-modules';
 
-import { books } from './bookModule';
+import { books } from '../book/books';
 
 export interface Author {
   id: string;

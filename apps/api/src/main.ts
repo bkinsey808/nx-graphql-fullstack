@@ -70,8 +70,11 @@ const startApolloServer = async () => {
 };
 
 const main = async () => {
-  if (argv.g) await generateSchemaFiles();
-  else await startApolloServer();
+  if (argv.g) {
+    await generateSchemaFiles();
+  } else {
+    await startApolloServer();
+  }
 };
 
 void main();
