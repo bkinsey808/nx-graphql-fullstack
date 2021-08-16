@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { themeChoiceVar } from '../cache';
+import { themeChoiceVar } from './cache';
 
 import { useCustomTheme } from './useCustomTheme';
 

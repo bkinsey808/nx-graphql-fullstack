@@ -17,6 +17,8 @@
     "eqeqeq",
     "mixins",
     "nrwl",
+    "openid",
+    "pkce",
     "queryable",
     "rerender",
     "sonarjs",

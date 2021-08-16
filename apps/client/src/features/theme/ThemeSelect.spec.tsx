@@ -2,7 +2,7 @@ import { MockedProvider } from '@apollo/client/testing';
 
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
-import { themeChoiceVar, cache } from '../../cache';
+import { themeChoiceVar, cache } from '../../app/cache';
 
 import { ThemeSelect } from './ThemeSelect';
 

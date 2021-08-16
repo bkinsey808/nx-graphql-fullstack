@@ -2,11 +2,10 @@ import { useReactiveVar } from '@apollo/client';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { ChangeEvent, FC, memo } from 'react';
 
-import { ThemeChoice, themeChoiceVar, THEME_CHOICES } from '../../cache';
+import { ThemeChoice, themeChoiceVar, THEME_CHOICES } from '../../app/cache';
 
 const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
   if (event?.target?.value) {
-    console.log(event.target.value);
     themeChoiceVar(event?.target?.value as ThemeChoice);
   }
 };

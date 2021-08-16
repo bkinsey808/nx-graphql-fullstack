@@ -1,12 +1,11 @@
-import { ApolloProvider } from '@apollo/client';
 import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import { App } from './app/app';
-import { client } from './client';
+import { App } from './app/App';
 
 render(
-  <ApolloProvider client={client}>
+  <BrowserRouter>
     <App />
-  </ApolloProvider>,
+  </BrowserRouter>,
   document.getElementById('root')
 );

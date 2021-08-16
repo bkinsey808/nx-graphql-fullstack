@@ -3,7 +3,7 @@ import { createTheme, useMediaQuery } from '@material-ui/core';
 import { merge } from 'lodash';
 import { useMemo } from 'react';
 
-import { themeChoiceVar } from '../cache';
+import { themeChoiceVar } from './cache';
 
 import { darkTheme } from './darkTheme';
 import { lightTheme } from './lightTheme';

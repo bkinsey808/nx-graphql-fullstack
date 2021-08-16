@@ -2,6 +2,7 @@ import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
+import { useOktaAuth } from '@okta/okta-react';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect } from 'react';
 
@@ -30,6 +31,7 @@ const SEARCH = gql`
 `;
 
 export const Search = () => {
+  const { oktaAuth } = useOktaAuth();
   const [search, { loading, error, data }] = useLazyQuery<
     GetSearchResults,
     GetSearchResultsVariables
@@ -64,6 +66,13 @@ export const Search = () => {
             {error && !loading && <div>Error {JSON.stringify(error)}</div>}
           </Grid>
         </Grid>
+        <button
+          onClick={() => {
+            void oktaAuth.signOut();
+          }}
+        >
+          Sign Out
+        </button>
       </CardContent>
     </Card>
   );
