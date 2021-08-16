@@ -2,7 +2,8 @@ import { ApolloProvider } from '@apollo/client';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { OktaAuth, OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Router, Route, Switch } from 'react-router-dom';
 
 import { Login } from '../features/auth/Login';
 import { Search } from '../features/search/Search';
@@ -11,9 +12,10 @@ import { client } from './client';
 import { LOGIN_CALLBACK_URL, LOGIN_URL } from './urls';
 import { useCustomTheme } from './useCustomTheme';
 
+const history = createBrowserHistory();
+
 export const App = () => {
   const theme = useCustomTheme();
-  const history = useHistory();
 
   const config: OktaAuthOptions = {
     clientId: process.env.NX_OKTA_CLIENT_ID,
@@ -27,30 +29,37 @@ export const App = () => {
   const oktaAuth = new OktaAuth(config);
 
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-
-        <Security
-          oktaAuth={oktaAuth}
-          onAuthRequired={() => {
-            // Redirect to the /login page that has a CustomLoginComponent
-            history.push(LOGIN_URL);
-          }}
-          restoreOriginalUri={(_oktaAuth, originalUri) => {
-            history.replace(toRelativeUrl(originalUri, window.location.origin));
-          }}
-        >
-          <Switch>
-            {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-            <Route exact path={LOGIN_URL} component={Login} />
-            {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-            <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
-            {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-            <SecureRoute exact path="/" component={Search} />
-          </Switch>
-        </Security>
-      </ThemeProvider>
-    </ApolloProvider>
+    <Router history={history}>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Security
+            oktaAuth={oktaAuth}
+            onAuthRequired={() => {
+              // Redirect to the /login page that has a CustomLoginComponent
+              history.push(LOGIN_URL);
+            }}
+            restoreOriginalUri={(_oktaAuth, originalUri) => {
+              history.replace(
+                toRelativeUrl(originalUri, window.location.origin)
+              );
+            }}
+          >
+            <Switch>
+              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+              <Route exact path={LOGIN_URL} component={Login} />
+              <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
+              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+              <SecureRoute exact path="/" component={Search} />
+              <SecureRoute
+                exact
+                path="/test"
+                component={() => <div>hello</div>}
+              />
+            </Switch>
+          </Security>
+        </ThemeProvider>
+      </ApolloProvider>
+    </Router>
   );
 };
