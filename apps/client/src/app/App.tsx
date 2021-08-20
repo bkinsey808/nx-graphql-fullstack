@@ -51,11 +51,6 @@ export const App = () => {
               <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
               {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
               <SecureRoute exact path="/" component={Search} />
-              <SecureRoute
-                exact
-                path="/test"
-                component={() => <div>hello</div>}
-              />
             </Switch>
           </Security>
         </ThemeProvider>
