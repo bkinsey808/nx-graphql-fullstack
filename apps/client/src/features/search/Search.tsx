@@ -1,21 +1,20 @@
-import { gql, QueryLazyOptions, useLazyQuery } from '@apollo/client';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import { useOktaAuth } from '@okta/okta-react';
-import debounce from 'lodash/debounce';
-import { useCallback, useEffect } from 'react';
+import { useState } from 'react';
+import { gql, useQuery } from 'urql';
 
 import { ThemeSelect } from '../theme/ThemeSelect';
 
-import {
-  GetSearchResults,
-  GetSearchResultsVariables,
-} from './__generated__/GetSearchResults';
+// import {
+//   GetSearchResults,
+//   GetSearchResultsVariables,
+// } from './__generated__/GetSearchResults';
 import { SearchForm } from './SearchForm';
 import { SearchResults } from './SearchResults';
 
-const SEARCH = gql`
+const SearchQuery = gql`
   query GetSearchResults($contains: String!) {
     search(contains: $contains) {
       ... on Book {
@@ -31,22 +30,13 @@ const SEARCH = gql`
 `;
 
 export const Search = () => {
+  const [contains, setContains] = useState('');
   const { oktaAuth } = useOktaAuth();
-  const [search, { loading, error, data }] = useLazyQuery<
-    GetSearchResults,
-    GetSearchResultsVariables
-  >(SEARCH);
 
-  const debouncedSearch = useCallback(
-    (options?: QueryLazyOptions<GetSearchResultsVariables>) =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
-      debounce(search, 100)(options),
-    [search]
-  );
-
-  useEffect(() => {
-    debouncedSearch({ variables: { contains: '' } });
-  }, [debouncedSearch]);
+  const [result] = useQuery({
+    query: SearchQuery,
+    variables: { contains },
+  });
 
   return (
     <Card>
@@ -56,14 +46,19 @@ export const Search = () => {
             <ThemeSelect />
           </Grid>
           <Grid item>
-            <SearchForm search={debouncedSearch} />
-            {!data?.search?.length ? (
+            <SearchForm setContains={setContains} />
+            {!result?.data ? (
               <div>No results.</div>
             ) : (
-              <SearchResults searchResults={data.search} />
+              <SearchResults
+                searchResults={
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                  result?.data?.search
+                }
+              />
             )}
-            {loading && <div>Loading</div>}
-            {error && !loading && <div>Error {JSON.stringify(error)}</div>}
+            {/* {loading && <div>Loading</div>}
+            {error && !loading && <div>Error {JSON.stringify(error)}</div>} */}
           </Grid>
         </Grid>
         <button

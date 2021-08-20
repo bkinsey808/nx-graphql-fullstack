@@ -1,9 +1,9 @@
-import { ApolloProvider } from '@apollo/client';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { OktaAuth, OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
 import { createBrowserHistory } from 'history';
 import { Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'urql';
 
 import { Login } from '../features/auth/Login';
 import { Search } from '../features/search/Search';
@@ -30,7 +30,7 @@ export const App = () => {
 
   return (
     <Router history={history}>
-      <ApolloProvider client={client}>
+      <Provider value={client}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Security
@@ -54,7 +54,7 @@ export const App = () => {
             </Switch>
           </Security>
         </ThemeProvider>
-      </ApolloProvider>
+      </Provider>
     </Router>
   );
 };

@@ -1,15 +1,12 @@
-import { QueryLazyOptions } from '@apollo/client';
 import TextField from '@material-ui/core/TextField';
-import { FC, memo } from 'react';
-
-import { GetSearchResultsVariables } from './__generated__/GetSearchResults';
+import { Dispatch, FC, memo, SetStateAction } from 'react';
 
 interface SearchFormProps {
-  search: (options?: QueryLazyOptions<GetSearchResultsVariables>) => void;
+  setContains: Dispatch<SetStateAction<string>>;
 }
 
 export const SearchForm: FC<SearchFormProps> = memo(
-  ({ search }: SearchFormProps) => {
+  ({ setContains }: SearchFormProps) => {
     return (
       <form>
         <TextField
@@ -17,9 +14,9 @@ export const SearchForm: FC<SearchFormProps> = memo(
           id="outlined-basic"
           label="Search"
           variant="outlined"
-          onChange={({ target: { value } }) =>
-            search({ variables: { contains: value } })
-          }
+          onChange={({ target: { value } }) => {
+            setContains(value);
+          }}
         />
       </form>
     );

@@ -20,9 +20,11 @@
     "openid",
     "pkce",
     "queryable",
+    "reexecute",
     "rerender",
     "sonarjs",
-    "unmount"
+    "unmount",
+    "urql"
   ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",
