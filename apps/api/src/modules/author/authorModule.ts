@@ -11,19 +11,19 @@ export interface Author {
 
 export const authors: Author[] = [
   {
-    id: '1',
+    id: 'b949c9d2-30a9-4d49-bd3b-e957aad51552',
     firstName: 'Kate',
     lastName: 'Chopin',
     books: ['1'],
   },
   {
-    id: '2',
+    id: '3a9b176f-f688-4008-b786-5e07ce874dc5',
     firstName: 'Paul',
     lastName: 'Auster',
     books: ['2'],
   },
   {
-    id: '3',
+    id: 'f75c8303-90cc-4d42-ad88-a68bc2d7dc24',
     firstName: 'John',
     lastName: 'Zimmer',
     books: ['2'],

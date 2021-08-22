@@ -2,15 +2,21 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import { useOktaAuth } from '@okta/okta-react';
+
 import { useState } from 'react';
 import { gql, useQuery } from 'urql';
 
-import { ThemeSelect } from '../theme/ThemeSelect';
+// import { ThemeSelect } from '../theme/ThemeSelect';
 
 // import {
 //   GetSearchResults,
 //   GetSearchResultsVariables,
 // } from './__generated__/GetSearchResults';
+
+import {
+  GetSearchResults,
+  GetSearchResultsVariables,
+} from './__generated__/GetSearchResults';
 import { SearchForm } from './SearchForm';
 import { SearchResults } from './SearchResults';
 
@@ -19,10 +25,12 @@ const SearchQuery = gql`
     search(contains: $contains) {
       ... on Book {
         __typename
+        id
         title
       }
       ... on Author {
         __typename
+        id
         fullName
       }
     }
@@ -33,7 +41,10 @@ export const Search = () => {
   const [contains, setContains] = useState('');
   const { oktaAuth } = useOktaAuth();
 
-  const [result] = useQuery({
+  const [{ fetching, error, data }] = useQuery<
+    GetSearchResults,
+    GetSearchResultsVariables
+  >({
     query: SearchQuery,
     variables: { contains },
   });
@@ -42,23 +53,23 @@ export const Search = () => {
     <Card>
       <CardContent>
         <Grid container spacing={3}>
-          <Grid xs={12} item>
+          {/* <Grid xs={12} item>
             <ThemeSelect />
-          </Grid>
+          </Grid> */}
           <Grid item>
             <SearchForm setContains={setContains} />
-            {!result?.data ? (
+            {!data ? (
               <div>No results.</div>
             ) : (
               <SearchResults
                 searchResults={
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                  result?.data?.search
+                  data?.search
                 }
               />
             )}
-            {/* {loading && <div>Loading</div>}
-            {error && !loading && <div>Error {JSON.stringify(error)}</div>} */}
+            {fetching && <div>Loading</div>}
+            {error && !fetching && <div>Error {JSON.stringify(error)}</div>}
           </Grid>
         </Grid>
         <button

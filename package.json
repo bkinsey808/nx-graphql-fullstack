@@ -36,7 +36,8 @@
     "watch-client": "nodemon -w apps/client/src -x \"npm run codegen:generate\" --ignore **/__generated__/** -e tsx,ts",
     "sleep": "sleep",
     "sleep-and-watch-client": "run-s \"sleep -- 5s\" \"watch\" ",
-    "dev": "run-p \"nx serve api\" \"nx serve client\" \"sleep-and-watch-client\" "
+    "dev": "run-p \"nx serve api\" \"nx serve client\" \"sleep-and-watch-client\" ",
+    "generate-urql-schema": "ts-node ./apps/api/src/scripts/urqlIntrospection.ts"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +45,9 @@
     "@material-ui/core": "^4.12.1",
     "@okta/okta-auth-js": "^5.3.1",
     "@okta/okta-react": "^6.1.0",
+    "@urql/devtools": "^2.0.3",
+    "@urql/exchange-graphcache": "^4.3.0",
+    "@urql/introspection": "^0.3.0",
     "apollo-server-express": "^2.25.2",
     "compression": "^1.7.4",
     "core-js": "^3.6.5",

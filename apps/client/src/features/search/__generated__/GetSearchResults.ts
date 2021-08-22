@@ -9,11 +9,13 @@
 
 export interface GetSearchResults_search_Book {
   __typename: "Book";
+  id: string;
   title: string | null;
 }
 
 export interface GetSearchResults_search_Author {
   __typename: "Author";
+  id: string;
   fullName: string | null;
 }
 
