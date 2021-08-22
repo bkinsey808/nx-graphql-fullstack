@@ -6,7 +6,7 @@ import { createApplication } from 'graphql-modules';
 import * as helmet from 'helmet';
 import * as yargs from 'yargs';
 
-// import { Message } from '@nx-apollo-fullstack/api-interfaces';
+// import { Message } from '@nx-graphql-fullstack/api-interfaces';
 import { environment } from './environments/environment';
 import { modules } from './modules';
 

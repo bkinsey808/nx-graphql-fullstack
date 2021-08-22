@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-apollo-fullstack/api-interfaces": [
+      "@nx-graphql-fullstack/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
       ]
     }
