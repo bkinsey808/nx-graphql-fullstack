@@ -5,8 +5,9 @@
   "workbench.sideBar.location": "right",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
-  "github.copilot.autocomplete.enable": true,
+  "eslint.workingDirectories": ["./apps/client", "./apps/api"],
   "cSpell.words": [
+    "Consts",
     "GraphQL",
     "buildable",
     "builtins",

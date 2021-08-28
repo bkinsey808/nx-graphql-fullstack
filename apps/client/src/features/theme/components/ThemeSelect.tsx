@@ -1,17 +1,13 @@
-import { useReactiveVar } from '@apollo/client';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { ChangeEvent, FC, memo } from 'react';
+import { FC, memo, useContext } from 'react';
 
-import { ThemeChoice, themeChoiceVar, THEME_CHOICES } from '../../app/cache';
+import { THEME_CHOICES } from '../helpers/themeConsts';
+import { ThemeChoice } from '../helpers/themeTypes';
 
-const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
-  if (event?.target?.value) {
-    themeChoiceVar(event?.target?.value as ThemeChoice);
-  }
-};
+import { ThemeContext } from './ThemeContext';
 
 export const ThemeSelect: FC = memo(() => {
-  const themeChoice = useReactiveVar(themeChoiceVar);
+  const { themeChoice, setThemeChoice } = useContext(ThemeContext);
 
   return (
     <form>
@@ -21,7 +17,12 @@ export const ThemeSelect: FC = memo(() => {
         <Select
           key={themeChoice}
           value={themeChoice}
-          onChange={handleChange}
+          onChange={(event) => {
+            if (event?.target?.value) {
+              const newThemeChoice = event.target.value as ThemeChoice;
+              setThemeChoice(newThemeChoice);
+            }
+          }}
           label="Theme"
           aria-labelledby="theme-select-label"
         >

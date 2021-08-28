@@ -6,12 +6,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useState } from 'react';
 import { gql, useQuery } from 'urql';
 
-// import { ThemeSelect } from '../theme/ThemeSelect';
-
-// import {
-//   GetSearchResults,
-//   GetSearchResultsVariables,
-// } from './__generated__/GetSearchResults';
+import { ThemeSelect } from '../theme/components/ThemeSelect';
 
 import {
   GetSearchResults,
@@ -53,9 +48,9 @@ export const Search = () => {
     <Card>
       <CardContent>
         <Grid container spacing={3}>
-          {/* <Grid xs={12} item>
+          <Grid xs={12} item>
             <ThemeSelect />
-          </Grid> */}
+          </Grid>
           <Grid item>
             <SearchForm setContains={setContains} />
             {!data ? (

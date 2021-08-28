@@ -1,60 +1,32 @@
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { OktaAuth, OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
-import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
-import { createBrowserHistory } from 'history';
+import { LoginCallback, SecureRoute } from '@okta/okta-react';
+import { FC } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'urql';
+import { Provider as UrqlProvider } from 'urql';
 
-import { Login } from '../features/auth/Login';
+import { AppSecurity, Login } from '../features/auth';
 import { Search } from '../features/search/Search';
+import { AppTheme } from '../features/theme';
 
-import { client } from './client';
+import { history } from './history';
 import { LOGIN_CALLBACK_URL, LOGIN_URL } from './urls';
-import { useCustomTheme } from './useCustomTheme';
+import { urqlClient } from './urqlClient';
 
-const history = createBrowserHistory();
-
-export const App = () => {
-  const theme = useCustomTheme();
-
-  const config: OktaAuthOptions = {
-    clientId: process.env.NX_OKTA_CLIENT_ID,
-    issuer: `${process.env.NX_OKTA_URL}/oauth2/default`,
-    redirectUri: `http://localhost:4200${LOGIN_CALLBACK_URL}`,
-    scopes: ['openid', 'profile', 'email'],
-    pkce: true,
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const oktaAuth = new OktaAuth(config);
-
-  return (
-    <Router history={history}>
-      <Provider value={client}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Security
-            oktaAuth={oktaAuth}
-            onAuthRequired={() => {
-              // Redirect to the /login page that has a CustomLoginComponent
-              history.push(LOGIN_URL);
-            }}
-            restoreOriginalUri={(_oktaAuth, originalUri) => {
-              history.replace(
-                toRelativeUrl(originalUri, window.location.origin)
-              );
-            }}
-          >
-            <Switch>
-              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-              <Route exact path={LOGIN_URL} component={Login} />
-              <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
-              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
+export const App: FC = () => (
+  <Router history={history}>
+    <UrqlProvider value={urqlClient}>
+      <AppTheme>
+        <AppSecurity>
+          <Switch>
+            <Route exact path={LOGIN_URL} component={Login} />
+            <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
+            {process.env.NX_REQUIRE_LOGIN === 'false' ? (
+              <Route exact path="/" component={Search} />
+            ) : (
               <SecureRoute exact path="/" component={Search} />
-            </Switch>
-          </Security>
-        </ThemeProvider>
-      </Provider>
-    </Router>
-  );
-};
+            )}
+          </Switch>
+        </AppSecurity>
+      </AppTheme>
+    </UrqlProvider>
+  </Router>
+);
