@@ -68,6 +68,7 @@
       "rules": {
         "react/jsx-no-useless-fragment": "off",
         "react/jsx-props-no-spreading": ["error"],
+        "react/prop-types": ["error", { "ignore": ["children"] }],
         "prettier/prettier": "error",
         "import/no-unresolved": "off",
         "import/order": [

@@ -5,7 +5,6 @@ import { useCustomTheme } from '../hooks/useCustomTheme';
 
 import { ThemeContext } from './ThemeContext';
 
-// eslint-disable-next-line react/prop-types
 export const AppTheme: FC = ({ children }) => {
   const { themeChoice, setThemeChoice, theme } = useCustomTheme();
 
