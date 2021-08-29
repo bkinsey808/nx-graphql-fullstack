@@ -1,22 +1,31 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
 
 import { useCustomTheme } from '../useCustomTheme';
 
-test('useCustomTheme picks correct theme', () => {
-  const { result } = renderHook(() => useCustomTheme());
-  expect(result.current.themeChoice).toBe('Same as System');
+type UseCustomThemeType = typeof useCustomTheme;
+type UseCustomThemeReturnType = ReturnType<UseCustomThemeType>;
+type RenderResultType = RenderResult<UseCustomThemeReturnType>;
+type TestThemeChoice = (
+  themeChoiceToTest: 'Light' | 'Dark',
+  result: RenderResultType
+) => void;
 
+/** test a specific themeChoice. (helper function to reduce code duplication) */
+const testThemeChoice: TestThemeChoice = (themeChoiceToTest, result) => {
   act(() => {
-    result.current.setThemeChoice('Light');
+    result.current.setThemeChoice(themeChoiceToTest);
   });
-  expect(result.current.themeChoice).toBe('Light');
-  expect(result.current.themeType).toBe('light');
+  expect(result.current.themeChoice).toBe(themeChoiceToTest);
+  expect(result.current.themeType).toBe(themeChoiceToTest.toLowerCase());
   expect(result.current.theme).toMatchSnapshot();
+};
 
-  act(() => {
-    result.current.setThemeChoice('Dark');
+describe('useCustomTheme', () => {
+  test('picks correct theme', () => {
+    const { result } = renderHook(() => useCustomTheme());
+    expect(result.current.themeChoice).toBe('Same as System');
+
+    testThemeChoice('Light', result);
+    testThemeChoice('Dark', result);
   });
-  expect(result.current.themeChoice).toBe('Dark');
-  expect(result.current.themeType).toBe('dark');
-  expect(result.current.theme).toMatchSnapshot();
 });

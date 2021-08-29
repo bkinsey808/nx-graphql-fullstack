@@ -81,4 +81,90 @@ export const useCustomTheme = () => {
 };
 ```
 
+## Testing `useCustomTheme` custom hook
+
+We can test `useCustomTheme` like so. We test the Material UI `theme` configuration object with a snapshot test since it is big and complex.
+
+```ts
+type UseCustomThemeType = typeof useCustomTheme;
+type UseCustomThemeReturnType = ReturnType<UseCustomThemeType>;
+type RenderResultType = RenderResult<UseCustomThemeReturnType>;
+type TestThemeChoice = (
+  themeChoiceToTest: 'Light' | 'Dark',
+  result: RenderResultType
+) => void;
+
+const testThemeChoice: TestThemeChoice = (themeChoiceToTest, result) => {
+  act(() => {
+    result.current.setThemeChoice(themeChoiceToTest);
+  });
+  expect(result.current.themeChoice).toBe(themeChoiceToTest);
+  expect(result.current.themeType).toBe(themeChoiceToTest.toLowerCase());
+  expect(result.current.theme).toMatchSnapshot();
+};
+
+describe('useCustomTheme', () => {
+  test('picks correct theme', () => {
+    const { result } = renderHook(() => useCustomTheme());
+    expect(result.current.themeChoice).toBe('Same as System');
+
+    testThemeChoice('Light', result);
+    testThemeChoice('Dark', result);
+  });
+});
+```
+
 So far, so good. But how do we use this custom hook?
+
+## Top Level `AppTheme` Component
+
+`AppTheme` is used to encapsulate a ThemeContext combined with Material UI's theme related component.
+
+`useCustomTheme` emits three values we want to use:
+
+- `themeChoice` which is what the user selects
+- `setThemeChoice` which is how the user modifies `themeChoice`
+- `theme` which is the Material UI theme configuration object, which is passed to Material UI's `ThemeProvider` component.
+
+```ts
+export const AppTheme: FC = ({ children }) => {
+  const { themeChoice, setThemeChoice, theme } = useCustomTheme();
+
+  return (
+    <ThemeContext.Provider value={{ themeChoice, setThemeChoice }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </ThemeContext.Provider>
+  );
+};
+```
+
+where ThemeContext is:
+
+```ts
+export const ThemeContext = createContext({
+  themeChoice: 'Same as system' as ThemeChoice,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  setThemeChoice: (themeChoice: ThemeChoice) => {},
+});
+```
+
+## Top-level `App` Component
+
+We consume `AppTheme` inside our top level App component like so:
+
+```ts
+export const App: FC = () => (
+  <Router history={history}>
+    <UrqlProvider value={urqlClient}>
+      <AppTheme>
+        <AppSecurity>
+          <Switch>{/* routes etc */}</Switch>
+        </AppSecurity>
+      </AppTheme>
+    </UrqlProvider>
+  </Router>
+);
+```

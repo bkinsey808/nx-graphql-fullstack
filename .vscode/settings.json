@@ -9,6 +9,7 @@
   "cSpell.words": [
     "Consts",
     "GraphQL",
+    "UI's",
     "buildable",
     "builtins",
     "cacheable",
@@ -26,6 +27,7 @@
     "reexecute",
     "rerender",
     "sonarjs",
+    "typeof",
     "unmount",
     "urql"
   ],
