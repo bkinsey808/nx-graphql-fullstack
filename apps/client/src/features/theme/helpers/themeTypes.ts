@@ -1,8 +1,14 @@
 import { Theme } from '@material-ui/core';
 
-import { THEME_CHOICES } from './themeConsts';
+import {
+  THEME_CHOICES,
+  THEME_CHOICE_LABELS,
+  THEME_CHOICE_VALUES,
+} from './themeConsts';
 
-export type ThemeChoice = typeof THEME_CHOICES[number]; // string union type
+export type ThemeChoiceLabel = typeof THEME_CHOICE_LABELS[number]; // string union type
+export type ThemeChoiceValue = typeof THEME_CHOICE_VALUES[number]; // string union type
+export type ThemeChoice = typeof THEME_CHOICES[number];
 
 export type ThemeType = 'dark' | 'light';
 

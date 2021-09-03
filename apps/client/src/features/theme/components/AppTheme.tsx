@@ -6,10 +6,10 @@ import { useCustomTheme } from '../hooks/useCustomTheme';
 import { ThemeContext } from './ThemeContext';
 
 export const AppTheme: FC = ({ children }) => {
-  const { themeChoice, setThemeChoice, theme } = useCustomTheme();
+  const { themeChoiceValue, setThemeChoiceValue, theme } = useCustomTheme();
 
   return (
-    <ThemeContext.Provider value={{ themeChoice, setThemeChoice }}>
+    <ThemeContext.Provider value={{ themeChoiceValue, setThemeChoiceValue }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}

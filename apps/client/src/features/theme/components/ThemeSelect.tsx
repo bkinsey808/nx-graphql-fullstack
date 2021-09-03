@@ -7,16 +7,16 @@ import { ThemeChoice } from '../helpers/themeTypes';
 import { ThemeContext } from './ThemeContext';
 
 export const ThemeSelect: FC = memo(() => {
-  const { themeChoice, setThemeChoice } = useContext(ThemeContext);
+  const { themeChoiceValue, setThemeChoiceValue } = useContext(ThemeContext);
 
   return (
     <form>
       <AppSelect<ThemeChoice>
         id="theme"
         label="Theme"
-        value={themeChoice}
+        value={themeChoiceValue}
         options={THEME_CHOICES}
-        onChange={setThemeChoice}
+        onChange={setThemeChoiceValue}
       />
     </form>
   );

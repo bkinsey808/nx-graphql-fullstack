@@ -1,22 +1,29 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
-interface AppSelectProps<OptionType> {
+interface BaseOptionType {
+  value: string;
+  label: string;
+}
+
+interface AppSelectProps<OptionType extends BaseOptionType> {
   id: string;
   label: string;
-  value: OptionType;
-  options: readonly OptionType[];
-  onChange?: (value: OptionType) => void;
+  value: OptionType['value'];
+  options: OptionType[];
+  onChange?: (value: OptionType['value']) => void;
 }
 // Fun fact: you can't use React.FC for components with generics
 // see https://stackoverflow.com/questions/59947787/generictype-in-react-fcpropst#59947930
-type AppSelectFC = <OptionType extends string>(
-  props: AppSelectProps<OptionType>
-) => JSX.Element;
-
-export const AppSelect: AppSelectFC = (
-  // eslint-disable-next-line react/prop-types
-  { id, label, value, options, onChange }
-) => (
+// Also, in order to use generics inside the function body, you need to type the function itself,
+// not the constant the function is assigned to.
+// see https://stackoverflow.com/questions/53320261/typescript-can-i-use-generic-type-in-function-body#53321037
+export const AppSelect = <OptionType extends BaseOptionType>({
+  id,
+  label,
+  value,
+  options,
+  onChange,
+}: AppSelectProps<OptionType>): JSX.Element => (
   <FormControl id={id} variant="outlined">
     <InputLabel id={`${id}-select-label`}>{label}</InputLabel>
 
@@ -31,17 +38,16 @@ export const AppSelect: AppSelectFC = (
         getContentAnchorEl: null,
       }}
       onChange={({ target }) => {
-        // is there a better way to get OptionType directly?
-        onChange?.(target.value as typeof value);
+        onChange?.(target.value as OptionType['value']);
       }}
       label={label}
-      aria-labelledby="select-label"
+      aria-labelledby={`${id}-select-label`}
     >
       {
         // eslint-disable-next-line react/prop-types
-        options.map((choice) => (
-          <MenuItem key={choice} value={choice}>
-            {choice}
+        options.map((option) => (
+          <MenuItem key={option['value']} value={option['value']}>
+            {option['label']}
           </MenuItem>
         ))
       }
