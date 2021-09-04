@@ -12,8 +12,8 @@ interface AppSelectOption {
   label: string;
   value: string;
 }
+
 interface AppSelectProps<
-  // eslint-disable-next-line @typescript-eslint/ban-types
   FormFieldTypes,
   AppSelectOptions extends AppSelectOption[]
 > {
@@ -31,8 +31,7 @@ interface AppSelectProps<
 // not the constant the function is assigned to.
 // see https://stackoverflow.com/questions/53320261/typescript-can-i-use-generic-type-in-function-body#53321037
 export const UnmemoizedAppSelect = <
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  FormFieldTypes extends object,
+  FormFieldTypes,
   AppSelectOptions extends AppSelectOption[]
 >({
   name,
@@ -81,6 +80,8 @@ export const UnmemoizedAppSelect = <
   );
 };
 
+// unfortunately, doing the memo as a second step like this seems to be
+// necessary in order to perfectly preserve the generics props.
 export const AppSelect = memo(
   UnmemoizedAppSelect
 ) as typeof UnmemoizedAppSelect & { displayName: string };
