@@ -45,9 +45,9 @@ export const UnmemoizedAppSelect = <
       control={control}
       name={name}
       defaultValue={
-        defaultValue as
-          | UnpackNestedValue<PathValue<FormFieldTypes, Path<FormFieldTypes>>>
-          | undefined
+        defaultValue as UnpackNestedValue<
+          PathValue<FormFieldTypes, Path<FormFieldTypes>>
+        >
       }
       render={({ field: { onChange, onBlur, value } }) => (
         <FormControl variant="outlined" style={{ width: '100%' }}>
