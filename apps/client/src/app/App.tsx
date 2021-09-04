@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Provider as UrqlProvider } from 'urql';
 
+import { Dashboard } from '../components/Dashboard';
+
 import { AppSecurity, Login } from '../features/auth';
-import { Search } from '../features/search/Search';
 import { AppTheme } from '../features/theme';
 
 import { history } from './history';
@@ -20,9 +21,9 @@ export const App: FC = () => (
             <Route exact path={LOGIN_URL} component={Login} />
             <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
             {process.env.NX_REQUIRE_LOGIN === 'false' ? (
-              <Route exact path="/" component={Search} />
+              <Route exact path="/" component={Dashboard} />
             ) : (
-              <SecureRoute exact path="/" component={Search} />
+              <SecureRoute exact path="/" component={Dashboard} />
             )}
           </Switch>
         </AppSecurity>

@@ -16,7 +16,7 @@ export const useCustomTheme = () => {
   const themeType =
     themeChoiceValue === 'system'
       ? mediaQueryThemeType
-      : (themeChoiceValue.toLowerCase() as ThemeType);
+      : (themeChoiceValue as ThemeType);
 
   // getTheme is wrapped in useMemo since it is a pure function that contains
   // a potentially expensive deep merge operation.
