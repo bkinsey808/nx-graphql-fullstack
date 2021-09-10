@@ -8,6 +8,15 @@ import {
   UnpackNestedValue,
 } from 'react-hook-form/dist/types';
 
+export const getAppSelectOptions = <LabelType, ValueType>(
+  labels: readonly LabelType[],
+  values: readonly ValueType[]
+) =>
+  values.map((value, index) => ({
+    label: labels[index],
+    value,
+  }));
+
 interface AppSelectOption {
   label: string;
   value: string;
@@ -51,13 +60,14 @@ export const UnmemoizedAppSelect = <
       }
       render={({ field: { onChange, onBlur, value } }) => (
         <FormControl variant="outlined" style={{ width: '100%' }}>
-          <InputLabel>{label}</InputLabel>
+          <InputLabel id={`field-label-${name}`}>{label}</InputLabel>
           <Select
             style={{ width: '100%' }}
             onChange={onChange}
             value={value}
             onBlur={onBlur}
             label={label}
+            aria-labelledby={`field-label-${name}`}
             autoWidth={true}
             // position the menu below the select
             MenuProps={{

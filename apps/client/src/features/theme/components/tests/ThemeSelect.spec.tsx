@@ -1,18 +1,22 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
-import { ThemeChoice } from '../../helpers/themeTypes';
+import {
+  THEME_CHOICE_LABELS,
+  THEME_CHOICE_VALUES,
+} from '../../helpers/themeConsts';
+import { ThemeChoiceValue } from '../../helpers/themeTypes';
 import { AppTheme } from '../AppTheme';
 import { ThemeContext } from '../ThemeContext';
 import { ThemeSelect } from '../ThemeSelect';
 
-const testThemeSelectChoice = (themeChoiceToTest: ThemeChoice) => {
-  let themeChoice: ThemeChoice | undefined = undefined;
+const testThemeSelectChoice = (themeChoiceValueToTest: ThemeChoiceValue) => {
+  let themeChoiceValue: ThemeChoiceValue | undefined = undefined;
 
   const renderElement = (
     <AppTheme>
       <ThemeContext.Consumer>
         {(value) => {
-          themeChoice = value.themeChoice;
+          themeChoiceValue = value.themeChoiceValue;
           return null;
         }}
       </ThemeContext.Consumer>
@@ -21,8 +25,8 @@ const testThemeSelectChoice = (themeChoiceToTest: ThemeChoice) => {
   );
 
   render(renderElement);
-  expect(themeChoice).toBe('Same as System');
-  const wrapperNode = screen.getByLabelText('Theme');
+  expect(themeChoiceValue).toBe('system');
+  const wrapperNode = screen.getByLabelText('Theme Choice');
   const button = within(wrapperNode).getByRole('button');
   expect(button).toBeDefined();
 
@@ -30,20 +34,22 @@ const testThemeSelectChoice = (themeChoiceToTest: ThemeChoice) => {
     fireEvent.mouseDown(button);
   });
   const listbox = screen.getByRole('listbox');
-  const lightOption = within(listbox).getByText(themeChoiceToTest);
+  const label =
+    THEME_CHOICE_LABELS[THEME_CHOICE_VALUES.indexOf(themeChoiceValueToTest)];
+  const lightOption = within(listbox).getByText(label);
 
   act(() => {
     fireEvent.click(lightOption);
   });
-  expect(themeChoice).toBe(themeChoiceToTest);
+  expect(themeChoiceValue).toBe(themeChoiceValueToTest);
 };
 
 describe('ThemeSelect', () => {
   it('should set light mode successfully', () => {
-    testThemeSelectChoice('Light');
+    testThemeSelectChoice('light');
   });
 
   it('should set dark mode successfully', () => {
-    testThemeSelectChoice('Dark');
+    testThemeSelectChoice('dark');
   });
 });
