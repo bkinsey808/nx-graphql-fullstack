@@ -1,4 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
+
 import { FC } from 'react';
 
 import { useCustomTheme } from '../hooks/useCustomTheme';
