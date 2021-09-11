@@ -7,7 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "build:client:prod": "nx build client --prod -- --memoryLimit=8192",
-    "build:client:stats": "nx build client --prod -- --memoryLimit=8192  --statsJson",
+    "build:client:stats": "nx build client --prod --skip-nx-cache -- --memoryLimit=8192  --statsJson",
     "analyze:client:stats": "webpack-bundle-analyzer dist/apps/client/stats.json",
     "test": "nx run-many --all --target=test",
     "client:test-watch": "nx test client --watch",
