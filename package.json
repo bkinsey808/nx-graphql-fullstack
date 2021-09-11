@@ -7,7 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "build:client:prod": "cross-env NODE_ENV=production nx build client --prod -- --memoryLimit=8192",
-    "build:client:stats": "cross-env NODE_ENV=production nx build client --prod -- --memoryLimit=8192  --statsJson",
+    "build:client:stats": "cross-env NODE_ENV=production nx build client --prod --skip-nx-cache -- --memoryLimit=8192  --statsJson",
     "test": "nx run-many --all --target=test",
     "client:test-watch": "nx test client --watch",
     "lint": "nx run-many --all --target=lint",
