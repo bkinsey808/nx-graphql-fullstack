@@ -1,5 +1,4 @@
-import { CardContent, Grid } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
+import { CardContent, Grid, Card } from '@material-ui/core';
 import { useOktaAuth } from '@okta/okta-react';
 import { FC } from 'react';
 

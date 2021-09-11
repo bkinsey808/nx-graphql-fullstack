@@ -1,5 +1,5 @@
-import { createTheme } from '@material-ui/core';
-import { merge } from 'lodash';
+import { createTheme } from '@material-ui/core/styles';
+import merge from 'lodash/merge';
 
 import { darkTheme } from '../helpers/darkTheme';
 import { defaultTheme } from '../helpers/defaultTheme';
