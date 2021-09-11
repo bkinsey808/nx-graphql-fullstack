@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@material-ui/core';
-import lightBlue from '@material-ui/core/colors/lightBlue';
+import { lightBlue } from '@material-ui/core/colors';
 
 export const darkTheme: ThemeOptions = {
   palette: {
