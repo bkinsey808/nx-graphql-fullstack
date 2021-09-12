@@ -59,3 +59,6 @@ export const Login: FC = () => {
     </form>
   );
 };
+
+// needed because of lazy loading
+export default Login;
