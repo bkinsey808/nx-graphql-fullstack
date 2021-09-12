@@ -15,6 +15,7 @@
     "Consts",
     "cssmodule",
     "dedup",
+    "deepmerge",
     "eqeqeq",
     "graphcache",
     "GraphQL",
