@@ -10,6 +10,7 @@
     "build:client:prod:stats": "nx build client --prod --skip-nx-cache -- --memoryLimit=8192  --statsJson",
     "build:client:dev:stats": "nx build client --skip-nx-cache -- --memoryLimit=8192  --statsJson",
     "analyze:prod:stats": "run-s \"build:client:prod:stats\" \"webpack-bundle-analyzer\"",
+    "analyze:dev:stats": "run-s \"build:client:dev:stats\" \"webpack-bundle-analyzer\"",
     "webpack-bundle-analyzer": "webpack-bundle-analyzer dist/apps/client/stats.json",
     "test": "nx run-many --all --target=test",
     "client:test-watch": "nx test client --watch",
