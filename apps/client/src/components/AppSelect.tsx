@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { memo } from 'react';
 import { Controller } from 'react-hook-form';
 import {
@@ -75,7 +75,6 @@ export const UnmemoizedAppSelect = <
                 vertical: 'bottom',
                 horizontal: 'left',
               },
-              getContentAnchorEl: null,
             }}
           >
             {options.map((option) => (

@@ -1,3 +1,3 @@
-import { ThemeOptions } from '@material-ui/core';
+import { ThemeOptions } from '@mui/material';
 
 export const defaultThemeOptions: ThemeOptions = {};

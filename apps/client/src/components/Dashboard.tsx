@@ -1,4 +1,4 @@
-import { CardContent, Grid, Card } from '@material-ui/core';
+import { CardContent, Grid, Card } from '@mui/material';
 import { useOktaAuth } from '@okta/okta-react';
 import { FC } from 'react';
 import { Provider as UrqlProvider } from 'urql';

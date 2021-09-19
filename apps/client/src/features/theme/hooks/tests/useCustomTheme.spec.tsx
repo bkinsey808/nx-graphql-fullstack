@@ -16,7 +16,7 @@ const testThemeChoice: TestThemeChoice = (themeChoiceToTest, result) => {
     result.current.setThemeChoiceValue(themeChoiceToTest);
   });
   expect(result.current.themeChoiceValue).toBe(themeChoiceToTest);
-  expect(result.current.themeType).toBe(themeChoiceToTest);
+  expect(result.current.themeMode).toBe(themeChoiceToTest);
   expect(result.current.theme).toMatchSnapshot();
 };
 

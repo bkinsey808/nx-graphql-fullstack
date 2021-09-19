@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@material-ui/core/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 import merge from 'ts-deepmerge';
 
 import { darkThemeOptions } from '../helpers/darkThemeOptions';
@@ -6,17 +6,17 @@ import { defaultThemeOptions } from '../helpers/defaultThemeOptions';
 import { GetTheme } from '../helpers/themeTypes';
 
 /** given theme type, get Material UI theme configuration object */
-export const getTheme: GetTheme = (themeType) => {
+export const getTheme: GetTheme = (themeMode) => {
   const paletteTypeThemeOptions: ThemeOptions = {
     palette: {
-      type: themeType,
+      mode: themeMode,
     },
   };
   return createTheme(
     merge(
       paletteTypeThemeOptions,
       defaultThemeOptions,
-      themeType === 'dark' ? darkThemeOptions : {}
+      themeMode === 'dark' ? darkThemeOptions : {}
     )
   );
 };

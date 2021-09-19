@@ -1,5 +1,4 @@
-// import { Input } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form/dist/types'; // see https://github.com/react-hook-form/react-hook-form/issues/2073

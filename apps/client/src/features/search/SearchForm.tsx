@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 import { Dispatch, FC, memo, SetStateAction } from 'react';
 
 interface SearchFormProps {

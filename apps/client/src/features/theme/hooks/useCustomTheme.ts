@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
 import { useMemo, useState } from 'react';
 
 import { getTheme } from '../helpers/getTheme';
@@ -13,19 +13,19 @@ export const useCustomTheme = () => {
     ? 'dark'
     : 'light';
 
-  const themeType =
+  const themeMode =
     themeChoiceValue === 'system'
       ? mediaQueryThemeType
       : (themeChoiceValue as ThemeType);
 
   // getTheme is wrapped in useMemo since it is a pure function that contains
   // a potentially expensive deep merge operation.
-  const theme = useMemo(() => getTheme(themeType), [themeType]);
+  const theme = useMemo(() => getTheme(themeMode), [themeMode]);
 
   return {
     themeChoiceValue,
     setThemeChoiceValue,
-    themeType,
+    themeMode,
     theme,
   };
 };

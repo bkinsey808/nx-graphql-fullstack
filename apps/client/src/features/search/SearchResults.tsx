@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  List,
-  ListItem,
-} from '@material-ui/core';
+import { Card, CardHeader, CardContent, List, ListItem } from '@mui/material';
 import { FC } from 'react';
 
 import { GetSearchResults } from './__generated__/GetSearchResults';
