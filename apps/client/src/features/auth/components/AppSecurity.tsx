@@ -5,7 +5,6 @@ import { FC } from 'react';
 import { history } from '../../../app/history';
 import { LOGIN_CALLBACK_URL, LOGIN_URL } from '../../../app/urls';
 
-// eslint-disable-next-line react/prop-types
 export const AppSecurity: FC = ({ children }) => {
   const config: OktaAuthOptions = {
     clientId: process.env.NX_OKTA_CLIENT_ID,
