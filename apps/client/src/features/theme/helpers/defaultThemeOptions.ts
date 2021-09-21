@@ -5,6 +5,7 @@ export const defaultThemeOptions: ThemeOptions = {
     MuiFormControl: {
       defaultProps: {
         variant: 'outlined',
+        sx: { mt: 1 },
         style: {
           width: '100%',
         },
@@ -12,10 +13,10 @@ export const defaultThemeOptions: ThemeOptions = {
     },
     MuiSelect: {
       defaultProps: {
+        autoWidth: true,
         style: {
           width: '100%',
         },
-        autoWidth: true,
         // position the menu below the select
         MenuProps: {
           anchorOrigin: {
@@ -28,6 +29,10 @@ export const defaultThemeOptions: ThemeOptions = {
     MuiButton: {
       defaultProps: {
         variant: 'contained',
+        sx: { mt: 2 },
+        style: {
+          width: 'default',
+        },
       },
     },
   },

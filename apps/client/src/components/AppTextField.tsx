@@ -41,7 +41,6 @@ export const UnmemoizedAppTextField = <FormFieldTypes,>({
       render={({ field: { onChange, onBlur, value } }) => (
         <FormControl>
           <TextField
-            style={{ width: '100%' }}
             onChange={onChange}
             value={value}
             onBlur={onBlur}
