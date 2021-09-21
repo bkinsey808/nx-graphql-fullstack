@@ -1,33 +1,32 @@
+import { Button } from '@mui/material';
+import { SigninWithRedirectOptions } from '@okta/okta-auth-js';
 import { useOktaAuth } from '@okta/okta-react';
 import { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { AppTextField } from '../../../components/AppTextField';
+
+interface LoginFieldValues {
+  username: string;
+  password: string;
+}
 
 export const Login: FC = () => {
   const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState<string | undefined>();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { control, handleSubmit } = useForm<LoginFieldValues>();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    oktaAuth
-      .signInWithCredentials({ username, password })
-      .then((res) => {
-        setSessionToken(res.sessionToken);
-        // sessionToken is a one-use token, so make sure this is only called once
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        void oktaAuth.signInWithRedirect({ sessionToken: res.sessionToken });
-      })
-      .catch((err) => console.log('Found an error', err));
-  };
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const onSubmit = async ({ username, password }: LoginFieldValues) => {
+    try {
+      const res = await oktaAuth.signInWithCredentials({ username, password });
+      setSessionToken(res.sessionToken);
+      // sessionToken is a one-use token, so make sure this is only called once
+      void oktaAuth.signInWithRedirect({
+        sessionToken: res.sessionToken,
+      } as SigninWithRedirectOptions);
+    } catch (err) {
+      console.log('Found an error', err);
+    }
   };
 
   if (sessionToken) {
@@ -36,26 +35,19 @@ export const Login: FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </label>
-      <input id="submit" type="submit" value="Submit" />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <AppTextField<LoginFieldValues>
+        name="username"
+        label="Username"
+        control={control}
+      />
+      <AppTextField<LoginFieldValues>
+        label="Password"
+        name="password"
+        type="password"
+        control={control}
+      />
+      <Button type="submit">Submit</Button>
     </form>
   );
 };

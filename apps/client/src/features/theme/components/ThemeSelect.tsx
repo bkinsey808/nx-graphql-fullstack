@@ -7,12 +7,12 @@ import { ThemeChoiceValue } from '../helpers/themeTypes';
 
 import { ThemeContext } from './ThemeContext';
 
-interface ThemeChoiceFieldTypes {
+interface ThemeChoiceFieldValues {
   themeChoiceValue: ThemeChoiceValue;
 }
 
 export const ThemeSelect: FC = memo(() => {
-  const { control, watch } = useForm<ThemeChoiceFieldTypes>();
+  const { control, watch } = useForm<ThemeChoiceFieldValues>();
   const { themeChoiceValue, setThemeChoiceValue } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const ThemeSelect: FC = memo(() => {
 
   return (
     <form>
-      <AppSelect<ThemeChoiceFieldTypes, typeof THEME_CHOICES>
+      <AppSelect<ThemeChoiceFieldValues, typeof THEME_CHOICES>
         name="themeChoiceValue"
         label="Theme Choice"
         control={control}

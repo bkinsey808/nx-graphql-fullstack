@@ -43,6 +43,7 @@
       "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {
         "@typescript-eslint/ban-types": ["warn"],
+
         "@typescript-eslint/no-floating-promises": [
           "error",
           { "ignoreVoid": true }
@@ -63,6 +64,12 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@typescript-eslint/consistent-type-assertions": ["off"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

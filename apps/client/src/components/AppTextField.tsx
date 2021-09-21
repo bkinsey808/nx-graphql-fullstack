@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 import { memo } from 'react';
 import { Controller } from 'react-hook-form';
 import {
@@ -8,30 +8,13 @@ import {
   UnpackNestedValue,
 } from 'react-hook-form/dist/types';
 
-export const getAppSelectOptions = <LabelType, ValueType>(
-  labels: readonly LabelType[],
-  values: readonly ValueType[]
-) =>
-  values.map((value, index) => ({
-    label: labels[index],
-    value,
-  }));
-
-interface AppSelectOption {
-  label: string;
-  value: string;
-}
-
-interface AppSelectProps<
-  FormFieldTypes,
-  AppSelectOptions extends AppSelectOption[]
-> {
+interface AppTextFieldProps<FormFieldTypes> {
   name: Path<FormFieldTypes>;
   label: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
   control?: Control<FormFieldTypes, object>;
-  options: AppSelectOptions;
-  defaultValue?: AppSelectOptions[number]['value'] | '';
+  type?: string;
+  defaultValue?: string;
 }
 
 // Fun fact: you can't use React.FC for components with generics
@@ -39,16 +22,13 @@ interface AppSelectProps<
 // Also, in order to use generics inside the function body, you need to type the function itself,
 // not the constant the function is assigned to.
 // see https://stackoverflow.com/questions/53320261/typescript-can-i-use-generic-type-in-function-body#53321037
-export const UnmemoizedAppSelect = <
-  FormFieldTypes,
-  AppSelectOptions extends AppSelectOption[]
->({
+export const UnmemoizedAppTextField = <FormFieldTypes,>({
   name,
   label,
   control,
-  options,
+  type = 'text',
   defaultValue = '',
-}: AppSelectProps<FormFieldTypes, AppSelectOptions>): JSX.Element => {
+}: AppTextFieldProps<FormFieldTypes>): JSX.Element => {
   return (
     <Controller
       control={control}
@@ -60,21 +40,15 @@ export const UnmemoizedAppSelect = <
       }
       render={({ field: { onChange, onBlur, value } }) => (
         <FormControl>
-          <InputLabel id={`field-label-${name}`}>{label}</InputLabel>
-          <Select
+          <TextField
             style={{ width: '100%' }}
             onChange={onChange}
             value={value}
             onBlur={onBlur}
             label={label}
+            type={type}
             aria-labelledby={`field-label-${name}`}
-          >
-            {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
+          />
         </FormControl>
       )}
     />
@@ -83,7 +57,7 @@ export const UnmemoizedAppSelect = <
 
 // unfortunately, doing the memo as a second step like this seems to be
 // necessary in order to perfectly preserve the generics props.
-export const AppSelect = memo(
-  UnmemoizedAppSelect
-) as typeof UnmemoizedAppSelect & { displayName: string };
-AppSelect.displayName = 'AppSelect';
+export const AppTextField = memo(
+  UnmemoizedAppTextField
+) as typeof UnmemoizedAppTextField & { displayName: string };
+AppTextField.displayName = 'AppTextField';
