@@ -62,7 +62,6 @@ export const UnmemoizedAppSelect = <
         <FormControl>
           <InputLabel id={`field-label-${name}`}>{label}</InputLabel>
           <Select
-            style={{ width: '100%' }}
             onChange={onChange}
             value={value}
             onBlur={onBlur}

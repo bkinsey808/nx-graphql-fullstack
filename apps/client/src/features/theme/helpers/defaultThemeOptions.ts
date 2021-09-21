@@ -12,6 +12,9 @@ export const defaultThemeOptions: ThemeOptions = {
     },
     MuiSelect: {
       defaultProps: {
+        style: {
+          width: '100%',
+        },
         autoWidth: true,
         // position the menu below the select
         MenuProps: {
