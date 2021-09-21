@@ -15,7 +15,6 @@ export const Login: FC = () => {
   const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState<string | undefined>();
   const [formError, setFormError] = useState<string | undefined>();
-
   const { control, handleSubmit } = useForm<LoginFieldValues>();
 
   const onSubmit = async ({ username, password }: LoginFieldValues) => {
