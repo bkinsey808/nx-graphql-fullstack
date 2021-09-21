@@ -1,4 +1,4 @@
-import { Alert, Button, Stack } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import { SigninWithRedirectOptions } from '@okta/okta-auth-js';
 import { useOktaAuth } from '@okta/okta-react';
 import { FC, useState } from 'react';
