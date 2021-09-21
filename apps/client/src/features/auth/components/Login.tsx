@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Alert, Button, Stack } from '@mui/material';
 import { SigninWithRedirectOptions } from '@okta/okta-auth-js';
 import { useOktaAuth } from '@okta/okta-react';
 import { FC, useState } from 'react';
@@ -14,6 +14,8 @@ interface LoginFieldValues {
 export const Login: FC = () => {
   const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState<string | undefined>();
+  const [formError, setFormError] = useState<string | undefined>();
+
   const { control, handleSubmit } = useForm<LoginFieldValues>();
 
   const onSubmit = async ({ username, password }: LoginFieldValues) => {
@@ -24,8 +26,15 @@ export const Login: FC = () => {
       void oktaAuth.signInWithRedirect({
         sessionToken: res.sessionToken,
       } as SigninWithRedirectOptions);
-    } catch (err) {
-      console.log('Found an error', err);
+    } catch (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      err: any
+    ) {
+      if (err?.errorSummary) {
+        setFormError(err.message);
+      } else {
+        setFormError(JSON.stringify(err));
+      }
     }
   };
 
@@ -36,6 +45,7 @@ export const Login: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {formError && <Alert severity="error">{formError}</Alert>}
       <AppTextField<LoginFieldValues>
         name="username"
         label="Username"
