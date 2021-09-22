@@ -1,17 +1,12 @@
 import { Alert, Button } from '@mui/material';
-import { useOktaAuth } from '@okta/okta-react';
-import { FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FC } from 'react';
 
 import { AppTextField } from '../../../components/AppTextField';
 import { LoginFieldValues } from '../helpers/authTypes';
-import { getLoginOnSubmit } from '../helpers/getLoginOnSubmit';
+import { useLogin } from '../hooks/useLogin';
 
 export const Login: FC = () => {
-  const { oktaAuth } = useOktaAuth();
-  const [sessionToken, setSessionToken] = useState<string | undefined>();
-  const [formError, setFormError] = useState<string | undefined>();
-  const { control, handleSubmit } = useForm<LoginFieldValues>();
+  const { sessionToken, onSubmit, formError, control } = useLogin();
 
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens
@@ -19,14 +14,7 @@ export const Login: FC = () => {
   }
 
   return (
-    <form
-      onSubmit={getLoginOnSubmit({
-        oktaAuth,
-        setSessionToken,
-        setFormError,
-        handleSubmit,
-      })}
-    >
+    <form onSubmit={onSubmit}>
       {formError && <Alert severity="error">{formError}</Alert>}
       <AppTextField<LoginFieldValues>
         name="username"

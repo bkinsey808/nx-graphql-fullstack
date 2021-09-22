@@ -7,8 +7,8 @@ import {
 } from './authTypes';
 
 const loginHandleError: LoginHandleError = (err, setFormError) => {
-  if (err?.errorSummary) {
-    setFormError(err.message);
+  if ('errorSummary' in err) {
+    setFormError(err.errorSummary);
   } else {
     setFormError(JSON.stringify(err));
   }
@@ -24,11 +24,13 @@ const getOnValidSubmitHandler: GetOnValidSubmitHandler = ({
       username,
       password,
     });
-    setSessionToken(res.sessionToken);
+    const { sessionToken } = res;
+    setSessionToken(sessionToken);
+    const signinWithRedirectOptions = {
+      sessionToken,
+    } as SigninWithRedirectOptions;
     // sessionToken is a one-use token, so make sure this is only called once
-    void oktaAuth.signInWithRedirect({
-      sessionToken: res.sessionToken,
-    } as SigninWithRedirectOptions);
+    void oktaAuth.signInWithRedirect(signinWithRedirectOptions);
   } catch (err) {
     loginHandleError(err, setFormError);
   }
