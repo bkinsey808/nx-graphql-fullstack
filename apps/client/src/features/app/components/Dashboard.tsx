@@ -5,7 +5,7 @@ import { Provider as UrqlProvider } from 'urql';
 
 import { urqlClient } from '../../app';
 import { Search } from '../../search/Search';
-import { ThemeSelect } from '../../theme/components/ThemeSelect';
+import { ThemeSelect } from '../../theme';
 
 export const Dashboard: FC = () => {
   const { oktaAuth } = useOktaAuth();

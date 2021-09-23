@@ -17,8 +17,7 @@
     "sourceType": "module",
     "project": "./tsconfig.*?.json"
   },
-
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["!**/*", "**/node_modules/**", "*.js", "*.d.ts"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

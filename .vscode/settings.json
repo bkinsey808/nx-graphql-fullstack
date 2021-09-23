@@ -35,12 +35,18 @@
     "unmount",
     "urql"
   ],
+  "cSpell.workspaceRootPath": "./apps",
+  "cSpell.files": ["**"],
   "cSpell.ignorePaths": [
+    "/home/bkinsey/**",
+    "../../**",
+    "!./apps/client/**",
     "**/package-lock.json",
     "**/node_modules/**",
     "**/vscode-extension/**",
     "**/.git/objects/**",
     ".vscode",
+    ".vscode-server/**",
     ".vscode-insiders",
     "package.json",
     "*.initialState.json",

@@ -1,7 +1,7 @@
 import { FC, memo, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { AppSelect } from '../../app/components/AppSelect';
+import { AppSelect } from '../../app';
 import { THEME_CHOICES } from '../helpers/themeConsts';
 import { ThemeChoiceValue } from '../helpers/themeTypes';
 
