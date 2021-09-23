@@ -3,8 +3,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { SubmitHandler } from 'react-hook-form/dist/types'; // see https://github.com/react-hook-form/react-hook-form/issues/2073
 
-import { THEME_CHOICES } from '../features/theme/helpers/themeConsts';
-import { ThemeChoiceValue } from '../features/theme/helpers/themeTypes';
+import { THEME_CHOICES, ThemeChoiceValue } from '../../theme';
 
 import { AppSelect } from './AppSelect';
 

@@ -2,14 +2,14 @@ import { LoginCallback, SecureRoute } from '@okta/okta-react';
 import { FC, lazy, Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 
-import { AppSecurity } from '../features/auth';
-import { AppTheme } from '../features/theme';
+import { AppSecurity } from '../../auth';
+import { AppTheme } from '../../theme';
 
-import { history } from './history';
-import { LOGIN_CALLBACK_URL, LOGIN_URL } from './urls';
+import { history } from '../helpers/history';
+import { LOGIN_CALLBACK_URL, LOGIN_URL } from '../helpers/urls';
 
-const Login = lazy(() => import('../features/auth/components/Login'));
-const Dashboard = lazy(() => import('../components/Dashboard'));
+const Login = lazy(() => import('../../auth/components/Login'));
+const Dashboard = lazy(() => import('./Dashboard'));
 
 export const App: FC = () => (
   <Router history={history}>

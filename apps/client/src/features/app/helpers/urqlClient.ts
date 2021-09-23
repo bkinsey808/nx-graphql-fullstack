@@ -3,7 +3,7 @@ import { cacheExchange } from '@urql/exchange-graphcache';
 import type { IntrospectionQuery } from 'graphql';
 import { createClient, dedupExchange, fetchExchange } from 'urql';
 
-import schema from '../../../../schema.json';
+import schema from '../../../../../../schema.json';
 
 export const urqlClient = createClient({
   url: 'http://localhost:4000/graphql',

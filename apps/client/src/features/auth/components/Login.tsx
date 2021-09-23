@@ -1,7 +1,7 @@
 import { Alert, Button } from '@mui/material';
 import { FC } from 'react';
 
-import { AppTextField } from '../../../components/AppTextField';
+import { AppTextField } from '../../app';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 

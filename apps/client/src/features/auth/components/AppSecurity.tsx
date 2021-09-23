@@ -2,8 +2,7 @@ import { OktaAuth, OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
 import { Security } from '@okta/okta-react';
 import { FC } from 'react';
 
-import { history } from '../../../app/history';
-import { LOGIN_CALLBACK_URL, LOGIN_URL } from '../../../app/urls';
+import { LOGIN_CALLBACK_URL, LOGIN_URL, history } from '../../app';
 
 export const AppSecurity: FC = ({ children }) => {
   const config: OktaAuthOptions = {

@@ -3,9 +3,9 @@ import { useOktaAuth } from '@okta/okta-react';
 import { FC } from 'react';
 import { Provider as UrqlProvider } from 'urql';
 
-import { urqlClient } from '../app/urqlClient';
-import { Search } from '../features/search/Search';
-import { ThemeSelect } from '../features/theme/components/ThemeSelect';
+import { urqlClient } from '../../app';
+import { Search } from '../../search/Search';
+import { ThemeSelect } from '../../theme/components/ThemeSelect';
 
 export const Dashboard: FC = () => {
   const { oktaAuth } = useOktaAuth();
