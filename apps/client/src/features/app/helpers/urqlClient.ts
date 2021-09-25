@@ -10,7 +10,7 @@ export const urqlClient = createClient({
   exchanges: [
     devtoolsExchange,
     dedupExchange,
-    cacheExchange({ schema: (schema as unknown) as IntrospectionQuery }),
+    cacheExchange({ schema: schema as unknown as IntrospectionQuery }),
     fetchExchange,
   ],
 });

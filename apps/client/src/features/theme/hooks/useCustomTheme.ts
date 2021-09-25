@@ -5,9 +5,8 @@ import { getTheme } from '../helpers/getTheme';
 import { ThemeChoiceValue, ThemeType } from '../helpers/themeTypes';
 
 export const useCustomTheme = () => {
-  const [themeChoiceValue, setThemeChoiceValue] = useState<ThemeChoiceValue>(
-    'system'
-  );
+  const [themeChoiceValue, setThemeChoiceValue] =
+    useState<ThemeChoiceValue>('system');
 
   const mediaQueryThemeType = useMediaQuery('(prefers-color-scheme: dark)')
     ? 'dark'

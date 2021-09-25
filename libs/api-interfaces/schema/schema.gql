@@ -32,12 +32,13 @@ directive @connection(
   filter: [String!]
 ) on FIELD
 
-type Author {
-  id: ID!
-  firstName: String
-  lastName: String
-  fullName: String
+type Query {
+  hello: String!
   books: [Book]
+  getBookById(id: ID!): Book
+  authors: [Author]
+  getAuthorById(id: ID!): Author
+  search(contains: String): [SearchResult]
 }
 
 type Book {
@@ -51,13 +52,12 @@ type Mutation {
   addBook(title: String!, authorId: String!): Book
 }
 
-type Query {
-  hello: String!
+type Author {
+  id: ID!
+  firstName: String
+  lastName: String
+  fullName: String
   books: [Book]
-  getBookById(id: ID!): Book
-  authors: [Author]
-  getAuthorById(id: ID!): Author
-  search(contains: String): [SearchResult]
 }
 
 union SearchResult = Book | Author

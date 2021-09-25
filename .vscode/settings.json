@@ -7,6 +7,7 @@
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "eslint.workingDirectories": ["./apps/client", "./apps/api"],
   "cSpell.words": [
+    "behaviour",
     "buildable",
     "builtins",
     "cacheable",
@@ -19,6 +20,7 @@
     "eqeqeq",
     "graphcache",
     "GraphQL",
+    "hookform",
     "listbox",
     "mixins",
     "nrwl",

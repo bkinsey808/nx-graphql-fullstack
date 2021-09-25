@@ -1,4 +1,5 @@
-import { OktaAuth, OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+import type { OktaAuthOptions } from '@okta/okta-auth-js/lib/types';
 import { Security } from '@okta/okta-react';
 import { FC } from 'react';
 

@@ -2,6 +2,7 @@ import { Alert, Button } from '@mui/material';
 import { FC } from 'react';
 
 import { AppTextField } from '../../app';
+import { loginFieldConfig } from '../helpers/authConsts';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 
@@ -18,13 +19,13 @@ export const Login: FC = () => {
       {formError && <Alert severity="error">{formError}</Alert>}
       <AppTextField<LoginFieldValues>
         name="username"
-        label="Username"
+        fieldConfig={loginFieldConfig}
         control={control}
       />
       <AppTextField<LoginFieldValues>
-        label="Password"
         name="password"
         type="password"
+        fieldConfig={loginFieldConfig}
         control={control}
       />
       <Button type="submit">Submit</Button>

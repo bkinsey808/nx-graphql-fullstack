@@ -1,11 +1,11 @@
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form/dist/types';
+import * as yup from 'yup';
 
-export interface LoginFieldValues {
-  username: string;
-  password: string;
-}
+import { loginFieldSchema } from './authConsts';
+
+export type LoginFieldValues = yup.InferType<typeof loginFieldSchema>;
 
 export type LoginHandleError = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
