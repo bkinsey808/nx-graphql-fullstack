@@ -6,8 +6,7 @@ import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 
 export const Login: FC = () => {
-  const { sessionToken, onSubmit, formError, fieldOptions } = useLogin();
-  console.log(fieldOptions.control);
+  const { sessionToken, onSubmit, formError, formOptions } = useLogin();
 
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens
@@ -19,11 +18,11 @@ export const Login: FC = () => {
       {formError && <Alert severity="error">{formError}</Alert>}
       <AppTextField<LoginFieldValues>
         name="username"
-        fieldOptions={fieldOptions}
+        formOptions={formOptions}
       />
       <AppTextField<LoginFieldValues>
         name="password"
-        fieldOptions={fieldOptions}
+        formOptions={formOptions}
       />
       <Button type="submit">Submit</Button>
     </form>

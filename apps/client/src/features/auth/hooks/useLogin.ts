@@ -14,9 +14,11 @@ export const useLogin = () => {
   const [sessionToken, setSessionToken] = useState<string | undefined>();
   const [formError, setFormError] = useState<string | undefined>();
 
-  const { control, handleSubmit } = useForm<LoginFieldValues>({
+  const { control, handleSubmit, formState } = useForm<LoginFieldValues>({
     resolver: yupResolver(loginFieldSchema),
   });
+
+  console.log({ formState });
 
   const onSubmit = getLoginOnSubmit({
     oktaAuth,
@@ -25,11 +27,11 @@ export const useLogin = () => {
     handleSubmit,
   });
 
-  console.log(JSON.stringify(control));
-  const fieldOptions = getFormOptions<LoginFieldValues>(
+  const formOptions = getFormOptions<LoginFieldValues>(
     loginFieldConfig,
-    control
+    control,
+    formState
   );
 
-  return { sessionToken, onSubmit, formError, control, fieldOptions };
+  return { sessionToken, onSubmit, formError, control, formOptions };
 };

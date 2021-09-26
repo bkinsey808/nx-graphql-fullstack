@@ -1,4 +1,4 @@
-import { Control } from 'react-hook-form/dist/types';
+import { Control, FormState } from 'react-hook-form/dist/types';
 import * as yup from 'yup';
 import Lazy from 'yup/lib/Lazy';
 
@@ -13,14 +13,14 @@ export const getKeys = Object.keys as <T extends object>(
 /** given a fieldConfig, generate yup fields that will be used to generate the yup validation */
 const getYupFields = (fieldConfig: AppFieldConfig) =>
   getKeys(fieldConfig).reduce((acc, fieldName) => {
-    let yupString = fieldConfig[fieldName as string].yupValidation;
+    let yupField = fieldConfig[fieldName as string].yupValidation;
     if (fieldConfig[fieldName as string].required) {
-      yupString = yupString.required();
+      yupField = yupField.required();
     }
     if (fieldConfig[fieldName as string].label) {
-      yupString = yupString.label(fieldConfig[fieldName as string].label);
+      yupField = yupField.label(fieldConfig[fieldName as string].label);
     }
-    acc[fieldName] = yupString;
+    acc[fieldName] = yupField;
     return acc;
   }, {} as { [fieldName: string]: yup.StringSchema<string | undefined> });
 
@@ -40,10 +40,12 @@ export const getYupSchema = (fieldConfig: AppFieldConfig) => {
 export const getFormOptions = <FieldValues>(
   fieldConfig: AppFieldConfig,
   // eslint-disable-next-line @typescript-eslint/ban-types
-  control: Control<FieldValues, object>
+  control: Control<FieldValues, object>,
+  formState: FormState<FieldValues>
 ) => {
   return {
     fieldConfig,
     control,
+    formState,
   } as AppFormOptions<FieldValues>;
 };

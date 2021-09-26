@@ -18,7 +18,7 @@ interface AppTextFieldProps<FormFieldTypes> {
   type?: string;
   defaultValue?: string;
   required?: boolean;
-  fieldOptions?: AppFormOptions<FormFieldTypes>;
+  formOptions?: AppFormOptions<FormFieldTypes>;
 }
 
 // Fun fact: you can't use React.FC for components with generics
@@ -29,11 +29,11 @@ interface AppTextFieldProps<FormFieldTypes> {
 export const UnmemoizedAppTextField = <FormFieldTypes,>({
   name,
   defaultValue = '',
-  fieldOptions,
-  required = fieldOptions?.fieldConfig?.[name]?.required ?? false,
-  label = fieldOptions?.fieldConfig?.[name]?.label ?? '',
-  type = fieldOptions?.fieldConfig?.[name]?.type ?? 'text',
-  control = fieldOptions?.control,
+  formOptions,
+  required = formOptions?.fieldConfig?.[name]?.required ?? false,
+  label = formOptions?.fieldConfig?.[name]?.label ?? '',
+  type = formOptions?.fieldConfig?.[name]?.type ?? 'text',
+  control = formOptions?.control,
 }: AppTextFieldProps<FormFieldTypes>): JSX.Element => {
   return (
     <Controller
