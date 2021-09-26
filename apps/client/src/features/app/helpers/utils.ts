@@ -1,6 +1,7 @@
 import * as yup from 'yup';
+import Lazy from 'yup/lib/Lazy';
 
-import { AppFieldConfig } from './appTypes';
+import { AppFieldConfig, AppFieldOptions } from './appTypes';
 
 /** typed version of Object.keys */
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -8,24 +9,28 @@ export const getKeys = Object.keys as <T extends object>(
   obj: T
 ) => Array<keyof T>;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const extendSchema = <T>(
+export const yupBuilder = (fieldConfig: AppFieldConfig) => {
+  const myBase = getKeys(fieldConfig).reduce((acc, fieldName) => {
+    let yupString = fieldConfig[fieldName as string].yupValidation;
+    if (fieldConfig[fieldName as string].required) {
+      yupString = yupString.required();
+    }
+    if (fieldConfig[fieldName as string].label) {
+      yupString = yupString.label(fieldConfig[fieldName as string].label);
+    }
+    acc[fieldName] = yupString;
+    return acc;
+  }, {} as { [fieldName: string]: yup.StringSchema<string | undefined> });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fieldSchema: any,
-  fieldConfig: AppFieldConfig
+  return yup.object().shape(myBase) as Lazy<any, unknown> | yup.AnyObjectSchema;
+};
+
+export const getFieldOptions = <ControlGenericType>(
+  fieldConfig: AppFieldConfig,
+  control: ControlGenericType
 ) => {
-  getKeys(fieldSchema).forEach((fieldName) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const label = fieldConfig[fieldName as any].label;
-    if (label) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fieldSchema[fieldName] = fieldSchema[fieldName].label(label);
-    }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (fieldConfig[fieldName as any].required) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fieldSchema[fieldName] = fieldSchema[fieldName].required();
-    }
-  });
-  return yup.object().shape(fieldSchema) as unknown as T;
+  return {
+    ...fieldConfig,
+    control,
+  } as AppFieldOptions<ControlGenericType>;
 };

@@ -8,18 +8,17 @@ import {
   UnpackNestedValue,
 } from 'react-hook-form/dist/types';
 
-import { AppFieldConfig, NoStringIndex } from '../helpers/appTypes';
+import { AppFieldConfig } from '../helpers/appTypes';
 
 interface AppTextFieldProps<FormFieldTypes> {
-  // NoStringIndex<> seems necessary because Yup.InferType adds `[key: string]: never` to the type
-  name: Path<NoStringIndex<FormFieldTypes>>;
-  label?: string;
+  name: Path<FormFieldTypes>;
   // eslint-disable-next-line @typescript-eslint/ban-types
   control?: Control<FormFieldTypes, object>;
+  label?: string;
   type?: string;
   defaultValue?: string;
   required?: boolean;
-  fieldConfig?: AppFieldConfig;
+  fieldOptions?: AppFieldConfig;
 }
 
 // Fun fact: you can't use React.FC for components with generics
@@ -30,11 +29,11 @@ interface AppTextFieldProps<FormFieldTypes> {
 export const UnmemoizedAppTextField = <FormFieldTypes,>({
   name,
   control,
-  type = 'text',
   defaultValue = '',
-  fieldConfig,
-  required = fieldConfig?.[name]?.required ?? false,
-  label = fieldConfig?.[name]?.label ?? '',
+  fieldOptions,
+  required = fieldOptions?.[name]?.required ?? false,
+  label = fieldOptions?.[name]?.label ?? '',
+  type = fieldOptions?.[name]?.type ?? 'text',
 }: AppTextFieldProps<FormFieldTypes>): JSX.Element => {
   return (
     <Controller

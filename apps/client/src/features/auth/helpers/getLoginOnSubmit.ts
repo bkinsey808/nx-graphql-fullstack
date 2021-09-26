@@ -1,12 +1,10 @@
 import type { SigninWithRedirectOptions } from '@okta/okta-auth-js/lib/types';
 
-import {
-  GetLoginOnSubmit,
-  GetOnValidSubmitHandler,
-  LoginHandleError,
-} from './authTypes';
+import { AppFormHandleError } from '../../app';
 
-const loginHandleError: LoginHandleError = (err, setFormError) => {
+import { GetLoginOnSubmit, GetOnValidSubmitHandler } from './authTypes';
+
+const loginHandleError: AppFormHandleError = (err, setFormError) => {
   if ('errorSummary' in err) {
     setFormError(err.errorSummary);
   } else {

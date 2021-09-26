@@ -1,17 +1,12 @@
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form/dist/types';
-import * as yup from 'yup';
 
-import { loginFieldSchema } from './authConsts';
-
-export type LoginFieldValues = yup.InferType<typeof loginFieldSchema>;
-
-export type LoginHandleError = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  err: any,
-  setFormError: Dispatch<SetStateAction<string | undefined>>
-) => void;
+// Unfortunately, yup.InferType does not work properly with the way I did yupBuilder
+export interface LoginFieldValues {
+  username: string;
+  password: string;
+}
 
 export interface GetLoginOnSubmitOptions {
   oktaAuth: OktaAuth;

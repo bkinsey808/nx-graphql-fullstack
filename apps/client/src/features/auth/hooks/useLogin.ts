@@ -3,7 +3,8 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { loginFieldSchema } from '../helpers/authConsts';
+import { getFieldOptions } from '../../app';
+import { loginFieldConfig, loginFieldSchema } from '../helpers/authConsts';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { getLoginOnSubmit } from '../helpers/getLoginOnSubmit';
 
@@ -23,5 +24,7 @@ export const useLogin = () => {
     handleSubmit,
   });
 
-  return { sessionToken, onSubmit, formError, control };
+  const fieldOptions = getFieldOptions(loginFieldConfig, control);
+
+  return { sessionToken, onSubmit, formError, control, fieldOptions };
 };
