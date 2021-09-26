@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { AppFieldConfig, yupBuilder } from '../../app';
+import { AppFieldConfig, getYupSchema } from '../../app';
 
 export const loginFieldConfig: AppFieldConfig = {
   username: {
@@ -17,4 +17,4 @@ export const loginFieldConfig: AppFieldConfig = {
   },
 };
 
-export const loginFieldSchema = yupBuilder(loginFieldConfig);
+export const loginFieldSchema = getYupSchema(loginFieldConfig);

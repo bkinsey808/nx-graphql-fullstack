@@ -7,6 +7,7 @@ import { useLogin } from '../hooks/useLogin';
 
 export const Login: FC = () => {
   const { sessionToken, onSubmit, formError, fieldOptions } = useLogin();
+  console.log(fieldOptions.control);
 
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens

@@ -8,7 +8,7 @@ import {
   UnpackNestedValue,
 } from 'react-hook-form/dist/types';
 
-import { AppFieldConfig } from '../helpers/appTypes';
+import { AppFormOptions } from '../helpers/appTypes';
 
 interface AppTextFieldProps<FormFieldTypes> {
   name: Path<FormFieldTypes>;
@@ -18,7 +18,7 @@ interface AppTextFieldProps<FormFieldTypes> {
   type?: string;
   defaultValue?: string;
   required?: boolean;
-  fieldOptions?: AppFieldConfig;
+  fieldOptions?: AppFormOptions<FormFieldTypes>;
 }
 
 // Fun fact: you can't use React.FC for components with generics
@@ -28,12 +28,12 @@ interface AppTextFieldProps<FormFieldTypes> {
 // see https://stackoverflow.com/questions/53320261/typescript-can-i-use-generic-type-in-function-body#53321037
 export const UnmemoizedAppTextField = <FormFieldTypes,>({
   name,
-  control,
   defaultValue = '',
   fieldOptions,
-  required = fieldOptions?.[name]?.required ?? false,
-  label = fieldOptions?.[name]?.label ?? '',
-  type = fieldOptions?.[name]?.type ?? 'text',
+  required = fieldOptions?.fieldConfig?.[name]?.required ?? false,
+  label = fieldOptions?.fieldConfig?.[name]?.label ?? '',
+  type = fieldOptions?.fieldConfig?.[name]?.type ?? 'text',
+  control = fieldOptions?.control,
 }: AppTextFieldProps<FormFieldTypes>): JSX.Element => {
   return (
     <Controller

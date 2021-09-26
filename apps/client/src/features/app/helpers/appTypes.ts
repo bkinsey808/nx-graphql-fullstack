@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { Control } from 'react-hook-form/dist/types';
 import * as yup from 'yup';
 import { RequiredStringSchema } from 'yup/lib/string';
 
@@ -19,8 +20,10 @@ export interface AppFieldConfig {
   };
 }
 
-export type AppFieldOptions<T> = AppFieldConfig & {
-  control: T;
+export type AppFormOptions<FieldValues> = {
+  fieldConfig: AppFieldConfig;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  control: Control<FieldValues, object>;
 };
 
 export type AppFormHandleError = (

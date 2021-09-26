@@ -2,7 +2,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form/dist/types';
 
-// Unfortunately, yup.InferType does not work properly with the way I did yupBuilder
+// Unfortunately, yup.InferType does not work properly with the way I did getYupSchema
 export interface LoginFieldValues {
   username: string;
   password: string;
