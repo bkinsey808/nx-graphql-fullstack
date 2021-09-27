@@ -1,22 +1,40 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useOktaAuth } from '@okta/okta-react';
-import { useState, MutableRefObject } from 'react';
+import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
-import { getFormOptions } from '../../app';
-import { loginFieldConfig, loginFieldSchema } from '../helpers/authConsts';
+import { getFormOptions, getYupSchema } from '../../app';
+import { AppFieldConfig } from '../../form';
+
 import { LoginFieldValues } from '../helpers/authTypes';
 import { getLoginOnSubmit } from '../helpers/getLoginOnSubmit';
 
+export const loginFieldConfig: AppFieldConfig = {
+  username: {
+    label: 'Username',
+    required: true,
+    type: 'text',
+    yupValidation: yup.string(),
+  },
+  password: {
+    label: 'Password',
+    required: true,
+    type: 'password',
+    yupValidation: yup.string(),
+  },
+};
+
 /** abstract non-display logic for Login component */
-export const useLogin = (formRef: MutableRefObject<HTMLFormElement | null>) => {
+export const useLogin = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
   const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState<string | undefined>();
   const [formError, setFormError] = useState<string | undefined>();
 
   const { control, handleSubmit, formState, trigger } =
     useForm<LoginFieldValues>({
-      resolver: yupResolver(loginFieldSchema),
+      resolver: yupResolver(getYupSchema(loginFieldConfig)),
     });
 
   const onSubmit = getLoginOnSubmit({
@@ -34,5 +52,5 @@ export const useLogin = (formRef: MutableRefObject<HTMLFormElement | null>) => {
     trigger
   );
 
-  return { sessionToken, onSubmit, formError, control, formOptions };
+  return { sessionToken, formRef, onSubmit, formError, control, formOptions };
 };

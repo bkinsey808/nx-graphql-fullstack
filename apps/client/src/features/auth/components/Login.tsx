@@ -1,13 +1,13 @@
 import { Button } from '@mui/material';
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 
 import { AppForm, AppTextField } from '../../form';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 
 export const Login: FC = () => {
-  const formRef = useRef<HTMLFormElement | null>(null);
-  const { sessionToken, onSubmit, formError, formOptions } = useLogin(formRef);
+  const { sessionToken, formRef, onSubmit, formError, formOptions } =
+    useLogin();
 
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens
