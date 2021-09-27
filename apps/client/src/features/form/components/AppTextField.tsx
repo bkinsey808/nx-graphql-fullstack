@@ -8,8 +8,9 @@ import {
   UnpackNestedValue,
 } from 'react-hook-form/dist/types';
 
-import { AppFormOptions } from '../helpers/appTypes';
-import { getHasError, getHelperText } from '../helpers/utils';
+import { AppFormOptions } from '../helpers/formTypes';
+import { getHasError } from '../helpers/getHasError';
+import { getHelperText } from '../helpers/getHelperText';
 
 interface AppTextFieldProps<FormFieldTypes> {
   name: Path<FormFieldTypes>;

@@ -1,7 +1,7 @@
-import { Alert, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { FC, useRef } from 'react';
 
-import { AppTextField } from '../../app';
+import { AppForm, AppTextField } from '../../form';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 
@@ -15,8 +15,7 @@ export const Login: FC = () => {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate>
-      {formError && <Alert severity="error">{formError}</Alert>}
+    <AppForm ref={formRef} onSubmit={onSubmit} formError={formError}>
       <AppTextField<LoginFieldValues>
         name="username"
         formOptions={formOptions}
@@ -26,7 +25,7 @@ export const Login: FC = () => {
         formOptions={formOptions}
       />
       <Button type="submit">Submit</Button>
-    </form>
+    </AppForm>
   );
 };
 
