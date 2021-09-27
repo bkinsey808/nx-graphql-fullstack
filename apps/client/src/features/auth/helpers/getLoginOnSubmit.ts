@@ -1,6 +1,6 @@
 import type { SigninWithRedirectOptions } from '@okta/okta-auth-js/lib/types';
 
-import { AppFormHandleError } from '../../app';
+import { AppFormHandleError, getErrorHandler } from '../../app';
 
 import { GetLoginOnSubmit, GetOnValidSubmitHandler } from './authTypes';
 
@@ -38,12 +38,11 @@ export const getLoginOnSubmit: GetLoginOnSubmit = ({
   setSessionToken,
   setFormError,
   handleSubmit,
+  formRef,
 }) => {
   return handleSubmit(
     // this means the form itself is valid (on the client side)
     getOnValidSubmitHandler({ oktaAuth, setSessionToken, setFormError }),
-    (errors) => {
-      console.log({ errors });
-    }
+    getErrorHandler(formRef)
   );
 };

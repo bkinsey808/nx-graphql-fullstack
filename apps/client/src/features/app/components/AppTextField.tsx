@@ -9,6 +9,7 @@ import {
 } from 'react-hook-form/dist/types';
 
 import { AppFormOptions } from '../helpers/appTypes';
+import { getHasError, getHelperText } from '../helpers/utils';
 
 interface AppTextFieldProps<FormFieldTypes> {
   name: Path<FormFieldTypes>;
@@ -34,7 +35,14 @@ export const UnmemoizedAppTextField = <FormFieldTypes,>({
   label = formOptions?.fieldConfig?.[name]?.label ?? '',
   type = formOptions?.fieldConfig?.[name]?.type ?? 'text',
   control = formOptions?.control,
-}: AppTextFieldProps<FormFieldTypes>): JSX.Element => {
+}: AppTextFieldProps<FormFieldTypes>): JSX.Element | null => {
+  const formState = formOptions?.formState;
+  const trigger = formOptions?.trigger;
+  if (!formState || !trigger) {
+    return null;
+  }
+  const hasError = getHasError(name, formState);
+
   return (
     <Controller
       control={control}
@@ -47,13 +55,26 @@ export const UnmemoizedAppTextField = <FormFieldTypes,>({
       render={({ field: { onChange, onBlur, value } }) => (
         <FormControl required={required}>
           <TextField
+            error={hasError}
             required={required}
-            onChange={onChange}
             value={value}
-            onBlur={onBlur}
+            onChange={(e) => {
+              if (hasError) {
+                void trigger(name);
+              }
+              onChange(e);
+            }}
+            onBlur={(_e) => {
+              void trigger(name);
+              onBlur();
+            }}
             label={label}
             type={type}
             aria-labelledby={`field-label-${name}`}
+            helperText={getHelperText(name, formState)}
+            inputProps={{
+              name, // used for getErrorHandler
+            }}
           />
         </FormControl>
       )}

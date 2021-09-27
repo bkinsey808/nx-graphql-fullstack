@@ -1,4 +1,13 @@
-import { Control, FormState } from 'react-hook-form/dist/types';
+import { MutableRefObject } from 'react';
+import {
+  Control,
+  DeepMap,
+  DeepPartial,
+  UnionLike,
+  FieldError,
+  FormState,
+  UseFormTrigger,
+} from 'react-hook-form/dist/types';
 import * as yup from 'yup';
 import Lazy from 'yup/lib/Lazy';
 
@@ -41,11 +50,62 @@ export const getFormOptions = <FieldValues>(
   fieldConfig: AppFieldConfig,
   // eslint-disable-next-line @typescript-eslint/ban-types
   control: Control<FieldValues, object>,
-  formState: FormState<FieldValues>
+  formState: FormState<FieldValues>,
+  trigger: UseFormTrigger<FieldValues>
 ) => {
   return {
     fieldConfig,
     control,
     formState,
+    trigger,
   } as AppFormOptions<FieldValues>;
 };
+
+export const getHelperText = <FormFieldTypes>(
+  fieldName: string,
+  formState: FormState<FormFieldTypes>
+) =>
+  (
+    formState.errors[
+      fieldName as unknown as keyof DeepMap<
+        DeepPartial<UnionLike<FormFieldTypes>>,
+        FieldError
+      >
+    ] as { message?: string }
+  )?.message;
+
+export const getHasError = <FormFieldTypes>(
+  fieldName: string,
+  formState: FormState<FormFieldTypes>
+) => {
+  const hasHelperText = !!getHelperText(fieldName, formState);
+  const isSubmitted = formState.isSubmitted;
+  const isDirty =
+    !!formState.dirtyFields[
+      fieldName as unknown as keyof DeepMap<
+        DeepPartial<UnionLike<FormFieldTypes>>,
+        true
+      >
+    ];
+
+  if (isSubmitted && !isDirty && hasHelperText) {
+    return true;
+  }
+  return isDirty && hasHelperText;
+};
+
+export const getErrorHandler =
+  (formRef: MutableRefObject<HTMLFormElement | null>) =>
+  (errors: { [fieldName: string]: FieldError }) => {
+    console.log({ formRef });
+    console.log({ errors });
+    const elements = formRef?.current?.elements || [];
+    for (let i = 0; i < elements.length; i++) {
+      const el = elements[i];
+      const name = el.getAttribute('name');
+      if (name && name in errors) {
+        (el as HTMLElement).focus();
+        break;
+      }
+    }
+  };

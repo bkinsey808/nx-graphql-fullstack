@@ -1,12 +1,13 @@
 import { Alert, Button } from '@mui/material';
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 
 import { AppTextField } from '../../app';
 import { LoginFieldValues } from '../helpers/authTypes';
 import { useLogin } from '../hooks/useLogin';
 
 export const Login: FC = () => {
-  const { sessionToken, onSubmit, formError, formOptions } = useLogin();
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const { sessionToken, onSubmit, formError, formOptions } = useLogin(formRef);
 
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens
@@ -14,7 +15,7 @@ export const Login: FC = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form ref={formRef} onSubmit={onSubmit} noValidate>
       {formError && <Alert severity="error">{formError}</Alert>}
       <AppTextField<LoginFieldValues>
         name="username"
