@@ -1,2 +1,2 @@
 export { AppSecurity } from './components/AppSecurity';
-export { Login } from './components/Login';
+export { LoginPage } from './components/LoginPage';

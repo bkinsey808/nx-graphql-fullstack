@@ -8,7 +8,7 @@ import { AppTheme } from '../../theme';
 import { history } from '../helpers/history';
 import { LOGIN_CALLBACK_URL, LOGIN_URL } from '../helpers/urls';
 
-const Login = lazy(() => import('../../auth/components/Login'));
+const LoginPage = lazy(() => import('../../auth/components/LoginPage'));
 const Dashboard = lazy(() => import('./Dashboard'));
 
 export const App: FC = () => (
@@ -17,7 +17,7 @@ export const App: FC = () => (
       <AppSecurity>
         <Suspense fallback={<>Loading...</>}>
           <Switch>
-            <Route exact path={LOGIN_URL} component={Login} />
+            <Route exact path={LOGIN_URL} component={LoginPage} />
             <Route path={`${LOGIN_CALLBACK_URL}`} component={LoginCallback} />
             {process.env.NX_REQUIRE_LOGIN === 'false' ? (
               <Route exact path="/" component={Dashboard} />

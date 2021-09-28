@@ -31,10 +31,11 @@ export const useLogin = () => {
   const { oktaAuth } = useOktaAuth();
   const [sessionToken, setSessionToken] = useState<string | undefined>();
   const [formError, setFormError] = useState<string | undefined>();
+  const resolver = yupResolver(getYupSchema(loginFieldConfig));
 
   const { control, handleSubmit, formState, trigger } =
     useForm<LoginFieldValues>({
-      resolver: yupResolver(getYupSchema(loginFieldConfig)),
+      resolver,
     });
 
   const onSubmit = getLoginOnSubmit({
